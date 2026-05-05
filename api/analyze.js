@@ -15,16 +15,14 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         model: 'claude-opus-4-7',
-        max_tokens: 1500,
-        messages: [{ role: 'user', content: `Sei un esperto consulente fotovoltaico italiano. Dati simulazione: consumi ${d.consumo} kWh/anno, bolletta €${d.bolletta}/mese, potenza ${d.potenza} kWp, zona ${d.zona}, costo €${d.costo}, produzione ${d.prod} kWh, autoconsumo ${d.autoc} kWh (${d.cop}%), immessa ${d.immessa} kWh, risparmio €${d.risp}/anno, payback ${d.pb} anni, risparmio 25 anni €${d.r25}. Fornisci analisi dettagliata in HTML con sezioni: <div class="pr-section"><h4>TITOLO</h4><p>testo</p></div> per: 1.VALUTAZIONE TAGLIA 2.BATTERIA ACCUMULO 3.DETRAZIONE IRPEF 50% 4.CONSIGLI MIRATI 5.ERRORI DA EVITARE. Usa numeri reali della simulazione.` }]
+        max_tokens: 3000,
+        messages: [{ role: 'user', content: `Sei un esperto consulente fotovoltaico italiano aggiornato al 2025/2026. Dati simulazione: consumi ${d.consumo} kWh/anno, bolletta €${d.bolletta}/mese, potenza ${d.potenza} kWp, zona ${d.zona}, costo €${d.costo}, produzione ${d.prod} kWh, autoconsumo ${d.autoc} kWh (${d.cop}%), immessa ${d.immessa} kWh, risparmio €${d.risp}/anno, payback ${d.pb} anni, risparmio 25 anni €${d.r25}. Fornisci analisi dettagliata e COMPLETA in HTML con queste 5 sezioni, ognuna con almeno 150 parole: <div class="pr-section"><h4>TITOLO</h4><p>testo</p></div> per: 1.VALUTAZIONE TAGLIA IMPIANTO 2.BATTERIA DI ACCUMULO 3.DETRAZIONE FISCALE 2025/2026 (aggiornata: detrazione 50% per prime case in corso di proroga, 36% per seconde case, Conto Termico 2.0 per aziende, incentivi GSE) 4.CONSIGLI MIRATI 5.ERRORI DA EVITARE. Usa i numeri reali della simulazione. Concludi SEMPRE il punto 5 con un paragrafo di incoraggiamento. Non troncare mai il testo.` }]
       })
     });
 
     const data = await response.json();
-    
-    // Log per debug
-    console.log('Anthropic response status:', response.status);
-    console.log('Anthropic data:', JSON.stringify(data));
+    console.log('Stato risposta antropica:', response.status);
+    console.log('Dati antropici:', JSON.stringify(data));
     
     const text = data?.content?.[0]?.text || '';
     return res.status(200).json({ result: text });
