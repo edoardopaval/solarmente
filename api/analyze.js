@@ -14,7 +14,7 @@ export default async function handler(req, res) {
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
+        model: 'claude-opus-4-7',
         max_tokens: 1500,
         messages: [{ role: 'user', content: `Sei un esperto consulente fotovoltaico italiano. Dati simulazione: consumi ${d.consumo} kWh/anno, bolletta €${d.bolletta}/mese, potenza ${d.potenza} kWp, zona ${d.zona}, costo €${d.costo}, produzione ${d.prod} kWh, autoconsumo ${d.autoc} kWh (${d.cop}%), immessa ${d.immessa} kWh, risparmio €${d.risp}/anno, payback ${d.pb} anni, risparmio 25 anni €${d.r25}. Fornisci analisi dettagliata in HTML con sezioni: <div class="pr-section"><h4>TITOLO</h4><p>testo</p></div> per: 1.VALUTAZIONE TAGLIA 2.BATTERIA ACCUMULO 3.DETRAZIONE IRPEF 50% 4.CONSIGLI MIRATI 5.ERRORI DA EVITARE. Usa numeri reali della simulazione.` }]
       })
