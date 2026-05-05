@@ -678,7 +678,7 @@ async function handlePayment(){
   localStorage.setItem('solarmente_email', email);
 
   // Reindirizza a Stripe
-  window.location.href='https://buy.stripe.com/4gM7sNgIDeym8spbtb4Vy00?prefilled_email='+encodeURIComponent(email)+'&success_url='+encodeURIComponent('https://simulatore-solare.vercel.app/?paid=true');
+  window.location.href='https://buy.stripe.com/4gM7sNgIDeym8spbtb4Vy00?prefilled_email='+encodeURIComponent(email)+'&success_url='+encodeURIComponent('https://solarmente-beta.vercel.app/?paid=true');
 
   btn.disabled=false;
   btn.textContent="🔒 Paga €9,90 e sblocca l'analisi";
