@@ -1,12 +1,9 @@
-export const config = { runtime: 'nodejs' };
-
-export default async function handler(req) {
+export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    return new Response('Method Not Allowed', { status: 405 });
+    return res.status(405).json({ error: 'Method Not Allowed' });
   }
-  const { simData: d } = await req.json();
-  const prompt = `Analisi fotovoltaico: ${JSON.stringify(d)}`;
   try {
+    const { simData: d } = req.body;
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -22,8 +19,8 @@ export default async function handler(req) {
     });
     const data = await response.json();
     const text = data.content?.find(b => b.type === 'text')?.text || '';
-    return new Response(JSON.stringify({ result: text }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    return res.status(200).json({ result: text });
   } catch (err) {
-    return new Response(JSON.stringify({ error: 'Errore' }), { status: 500, headers: { 'Content-Type': 'application/json' } });
+    return res.status(500).json({ error: 'Errore: ' + err.message });
   }
 }
