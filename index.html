@@ -126,25 +126,13 @@ select{width:100%;background:var(--card2);color:var(--text);border:1px solid var
 .bar-fill{height:100%;border-radius:4px;transition:width .5s ease;}
 
 /* PREMIUM BOX */
-.premium-upsell{
-  margin-top:28px;
-  border-radius:20px;
-  border:1.5px solid rgba(255,215,0,0.35);
-  background:linear-gradient(135deg,rgba(255,215,0,0.07) 0%,rgba(245,158,11,0.04) 100%);
-  padding:28px 28px 24px;
-  position:relative;overflow:hidden;
-}
-.premium-upsell::before{
-  content:'';position:absolute;top:-60px;right:-60px;
-  width:200px;height:200px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,215,0,0.12),transparent 70%);
-}
+.premium-upsell{margin-top:28px;border-radius:20px;border:1.5px solid rgba(255,215,0,0.35);background:linear-gradient(135deg,rgba(255,215,0,0.07) 0%,rgba(245,158,11,0.04) 100%);padding:28px 28px 24px;position:relative;overflow:hidden;}
+.premium-upsell::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,215,0,0.12),transparent 70%);}
 .premium-header{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px;}
 .premium-title{display:flex;align-items:flex-start;gap:10px;}
 .premium-title h3{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;}
 .crown{font-size:22px;margin-top:2px;}
 .premium-price{font-family:'Syne',sans-serif;font-weight:800;font-size:28px;color:var(--gold);white-space:nowrap;}
-
 .premium-cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
 .pcard{display:flex;gap:12px;background:rgba(10,22,40,0.5);border:1px solid rgba(255,215,0,0.12);border-radius:14px;padding:16px;}
 .pcard:hover{border-color:rgba(255,215,0,0.28);transition:border-color .2s;}
@@ -152,81 +140,35 @@ select{width:100%;background:var(--card2);color:var(--text);border:1px solid var
 .pcard-body{}
 .pcard-title{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;margin-bottom:5px;color:var(--text);}
 .pcard-desc{font-size:12px;color:var(--muted);line-height:1.55;}
-
-.premium-guarantee{
-  display:flex;align-items:flex-start;gap:12px;
-  background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);
-  border-radius:12px;padding:14px 16px;margin-bottom:20px;
-}
+.premium-guarantee{display:flex;align-items:flex-start;gap:12px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:14px 16px;margin-bottom:20px;}
 .premium-guarantee p{font-size:13px;color:var(--muted);line-height:1.5;}
-.btn-premium{
-  width:100%;padding:16px;border-radius:14px;border:none;
-  background:linear-gradient(135deg,#FFD700,#F59E0B);
-  color:#0A1628;font-family:'Syne',sans-serif;font-weight:800;font-size:16px;
-  cursor:pointer;letter-spacing:0.01em;
-  box-shadow:0 4px 24px rgba(255,215,0,0.25);
-  transition:transform .15s,box-shadow .15s;
-}
+.btn-premium{width:100%;padding:16px;border-radius:14px;border:none;background:linear-gradient(135deg,#FFD700,#F59E0B);color:#0A1628;font-family:'Syne',sans-serif;font-weight:800;font-size:16px;cursor:pointer;letter-spacing:0.01em;box-shadow:0 4px 24px rgba(255,215,0,0.25);transition:transform .15s,box-shadow .15s;}
 .btn-premium:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(255,215,0,0.35);}
 
 /* MODAL OVERLAY */
-.modal-overlay{
-  display:none;position:fixed;inset:0;z-index:500;
-  background:rgba(5,12,25,0.88);backdrop-filter:blur(8px);
-  align-items:center;justify-content:center;padding:20px;
-}
+.modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(5,12,25,0.88);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.open{display:flex;}
-.modal-box{
-  background:var(--bg2);border:1px solid rgba(255,215,0,0.25);
-  border-radius:24px;width:100%;max-width:480px;
-  padding:36px;position:relative;
-  animation:slideUp .3s ease;
-}
+.modal-box{background:var(--bg2);border:1px solid rgba(255,215,0,0.25);border-radius:24px;width:100%;max-width:480px;padding:36px;position:relative;animation:slideUp .3s ease;}
 @keyframes slideUp{from{transform:translateY(30px);opacity:0;}to{transform:none;opacity:1;}}
-.modal-close{
-  position:absolute;top:16px;right:16px;
-  background:var(--card2);border:none;color:var(--muted);
-  width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px;
-  display:flex;align-items:center;justify-content:center;transition:color .2s;
-}
+.modal-close{position:absolute;top:16px;right:16px;background:var(--card2);border:none;color:var(--muted);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:color .2s;}
 .modal-close:hover{color:var(--text);}
 .modal-icon{font-size:32px;margin-bottom:12px;}
 .modal-box h2{font-family:'Syne',sans-serif;font-weight:800;font-size:22px;margin-bottom:8px;}
 .modal-box p.modal-sub{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:24px;}
 .modal-form-group{margin-bottom:16px;}
 .modal-form-group label{display:block;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
-.modal-form-group input{
-  width:100%;background:var(--card);color:var(--text);
-  border:1px solid var(--border);border-radius:10px;
-  padding:12px 14px;font-family:'DM Sans',sans-serif;font-size:15px;
-  outline:none;transition:border-color .2s;
-}
+.modal-form-group input{width:100%;background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-family:'DM Sans',sans-serif;font-size:15px;outline:none;transition:border-color .2s;}
 .modal-form-group input:focus{border-color:rgba(255,215,0,0.5);}
-.modal-price-row{
-  display:flex;align-items:center;justify-content:space-between;
-  background:var(--card);border-radius:12px;padding:14px 16px;
-  margin-bottom:20px;
-}
+.modal-price-row{display:flex;align-items:center;justify-content:space-between;background:var(--card);border-radius:12px;padding:14px 16px;margin-bottom:20px;}
 .modal-price-row span{font-size:14px;color:var(--muted);}
 .modal-price-row strong{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--gold);}
-.btn-pay{
-  width:100%;padding:16px;border-radius:14px;border:none;
-  background:linear-gradient(135deg,#FFD700,#F59E0B);
-  color:#0A1628;font-family:'Syne',sans-serif;font-weight:800;font-size:16px;
-  cursor:pointer;box-shadow:0 4px 20px rgba(255,215,0,0.25);
-  transition:transform .15s;display:flex;align-items:center;justify-content:center;gap:8px;
-}
+.btn-pay{width:100%;padding:16px;border-radius:14px;border:none;background:linear-gradient(135deg,#FFD700,#F59E0B);color:#0A1628;font-family:'Syne',sans-serif;font-weight:800;font-size:16px;cursor:pointer;box-shadow:0 4px 20px rgba(255,215,0,0.25);transition:transform .15s;display:flex;align-items:center;justify-content:center;gap:8px;}
 .btn-pay:hover{transform:translateY(-2px);}
 .btn-pay:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
 .modal-note{font-size:12px;color:var(--muted);text-align:center;margin-top:12px;}
 
 /* RISULTATO PREMIUM */
-.premium-result{
-  display:none;margin-top:28px;
-  background:var(--card);border-radius:20px;
-  border:1.5px solid rgba(255,215,0,0.3);
-  padding:28px;
-}
+.premium-result{display:none;margin-top:28px;background:var(--card);border-radius:20px;border:1.5px solid rgba(255,215,0,0.3);padding:28px;}
 .premium-result.visible{display:block;}
 .premium-result-header{display:flex;align-items:center;gap:10px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border);}
 .premium-result-header h3{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:var(--gold);}
@@ -266,12 +208,74 @@ footer{padding:60px 6% 36px;border-top:1px solid var(--border);}
 .fade-up{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease;}
 .fade-up.visible{opacity:1;transform:none;}
 
+/* ── MOBILE ── */
 @media(max-width:768px){
   .hero-visual,.vantaggi-wrap .vantaggio-img{display:none;}
   .vantaggi-wrap,.results-row{grid-template-columns:1fr;}
   .premium-cards-grid{grid-template-columns:1fr;}
   .hero-stats{gap:24px;}
   nav .nav-links{display:none;}
+
+  nav{padding:12px 5%;}
+  .nav-cta{font-size:12px;padding:8px 14px;}
+
+  #hero{padding:85px 5% 48px;min-height:auto;}
+  h1{font-size:28px;line-height:1.1;}
+  .hero-badge{font-size:11px;padding:5px 12px;margin-bottom:20px;}
+  .hero-sub{font-size:14px;margin-bottom:24px;}
+  .hero-btns{flex-direction:column;gap:10px;}
+  .btn-primary,.btn-ghost{text-align:center;width:100%;padding:13px 20px;font-size:14px;}
+  .hero-stats{margin-top:28px;padding-top:20px;gap:20px;}
+  .stat-num{font-size:22px;}
+  .stat-label{font-size:12px;}
+
+  section{padding:48px 5%;}
+  .section-title{font-size:22px;}
+  .section-sub{font-size:14px;}
+
+  .steps-grid{grid-template-columns:1fr;margin-top:28px;}
+  .step-card{padding:20px 16px;}
+  .step-num{font-size:32px;}
+  .step-title{font-size:15px;}
+
+  .vantaggi-wrap{margin-top:28px;gap:16px;}
+  .vantaggio-item{padding:14px;}
+  .vantaggio-icon{width:36px;height:36px;font-size:16px;}
+
+  .sim-box{padding:16px 12px;border-radius:16px;}
+  .results-row{gap:8px;}
+  .res-card{padding:12px 10px;}
+  .rc-value{font-size:16px;}
+  .rc-label{font-size:10px;}
+  .payback-box{flex-direction:column;gap:12px;padding:14px;}
+  #res-payback,#res-25y{font-size:22px !important;}
+
+  .premium-upsell{padding:16px 14px;margin-top:16px;}
+  .premium-header{flex-direction:row;align-items:center;justify-content:space-between;}
+  .premium-title h3{font-size:16px;}
+  .premium-price{font-size:20px;}
+  .pcard{padding:10px 8px;gap:8px;}
+  .pcard-icon{width:30px;height:30px;font-size:14px;border-radius:8px;}
+  .pcard-title{font-size:12px;}
+  .pcard-desc{font-size:11px;}
+  .btn-premium{font-size:14px;padding:14px 10px;}
+
+  .modal-overlay{padding:12px;}
+  .modal-box{padding:20px 16px;border-radius:16px;}
+  .modal-box h2{font-size:17px;}
+  .modal-box p.modal-sub{font-size:13px;}
+
+  .testi-grid{margin-top:28px;gap:16px;}
+  .testi-card{padding:20px;}
+  .testi-text{font-size:13px;}
+
+  .footer-top{flex-direction:column;gap:20px;}
+  .footer-bottom{flex-direction:column;text-align:center;gap:8px;}
+
+  .premium-result{padding:16px 12px;}
+  .premium-result-header h3{font-size:15px;}
+  .pr-section h4{font-size:12px;}
+  .pr-section p,.pr-section li{font-size:13px;line-height:1.6;}
 }
 </style>
 </head>
@@ -326,7 +330,6 @@ footer{padding:60px 6% 36px;border-top:1px solid var(--border);}
       <div class="step-title">Analisi AI avanzata a €9,90</div>
       <p class="step-desc">Se vuoi andare oltre i numeri di base, sblocca l'analisi personalizzata: taglia ottimale, batteria di accumulo, detrazione IRPEF calcolata sul tuo caso, consigli mirati ed errori da evitare. Tutto in meno di un minuto.</p>
     </div>
-
   </div>
 </section>
 
@@ -437,55 +440,48 @@ footer{padding:60px 6% 36px;border-top:1px solid var(--border);}
         </p>
 
         <div class="premium-cards-grid">
-
           <div class="pcard">
             <div class="pcard-icon" style="background:rgba(245,158,11,0.15);">⚡</div>
             <div class="pcard-body">
               <div class="pcard-title">Taglia ottimale dell'impianto</div>
-              <p class="pcard-desc">Scopri se la potenza che hai inserito è quella giusta per i tuoi consumi reali. Ti diciamo se stai sovradimensionando (sprecando soldi) o sottodimensionando (perdendo risparmio).</p>
+              <p class="pcard-desc">Scopri se la potenza che hai inserito è quella giusta per i tuoi consumi reali.</p>
             </div>
           </div>
-
           <div class="pcard">
             <div class="pcard-icon" style="background:rgba(14,165,233,0.15);">🔋</div>
             <div class="pcard-body">
               <div class="pcard-title">Batteria di accumulo: conviene?</div>
-              <p class="pcard-desc">Calcoliamo la capacità ideale (kWh) per il tuo profilo di consumo, il costo aggiuntivo indicativo e quanto aumenta l'autoconsumo — con e senza accumulo a confronto.</p>
+              <p class="pcard-desc">Calcoliamo la capacità ideale per il tuo profilo di consumo.</p>
             </div>
           </div>
-
           <div class="pcard">
             <div class="pcard-icon" style="background:rgba(16,185,129,0.15);">📋</div>
             <div class="pcard-body">
               <div class="pcard-title">Detrazione IRPEF 50% nel dettaglio</div>
-              <p class="pcard-desc">Quanto recuperi ogni anno, per quanti anni, e qual è il payback reale dopo la detrazione. Non un numero generico: il calcolo preciso sul tuo impianto.</p>
+              <p class="pcard-desc">Il calcolo preciso sul tuo impianto, non un numero generico.</p>
             </div>
           </div>
-
           <div class="pcard">
             <div class="pcard-icon" style="background:rgba(255,215,0,0.12);">📈</div>
             <div class="pcard-body">
               <div class="pcard-title">Piano finanziario su 25 anni</div>
-              <p class="pcard-desc">Anno per anno: risparmio cumulato, ritorno sull'investimento con e senza incentivi, proiezione del costo dell'energia dalla rete e del tuo vantaggio competitivo nel tempo.</p>
+              <p class="pcard-desc">Anno per anno: risparmio cumulato e ritorno sull'investimento.</p>
             </div>
           </div>
-
           <div class="pcard">
             <div class="pcard-icon" style="background:rgba(244,63,94,0.12);">🎯</div>
             <div class="pcard-body">
               <div class="pcard-title">Consigli mirati al tuo caso</div>
-              <p class="pcard-desc">Azioni concrete e specifiche per la tua configurazione: orientamento ideale, tecnologia consigliata, fascia oraria di consumo da ottimizzare e molto altro.</p>
+              <p class="pcard-desc">Azioni concrete e specifiche per la tua configurazione.</p>
             </div>
           </div>
-
           <div class="pcard">
             <div class="pcard-icon" style="background:rgba(168,85,247,0.12);">🚫</div>
             <div class="pcard-body">
               <div class="pcard-title">Errori da evitare assolutamente</div>
-              <p class="pcard-desc">I 3 errori più comuni per impianti con il tuo profilo — quelli che costano soldi inutili o riducono il rendimento nel tempo. Meglio saperli prima di firmare qualsiasi preventivo.</p>
+              <p class="pcard-desc">I 3 errori più comuni per impianti con il tuo profilo.</p>
             </div>
           </div>
-
         </div>
 
         <div class="premium-guarantee">
@@ -596,11 +592,8 @@ footer{padding:60px 6% 36px;border-top:1px solid var(--border);}
 </div>
 
 <script>
-// ── SIMULATORE ──
 function fmt(n){return n.toLocaleString('it-IT',{maximumFractionDigits:0});}
-
-let simData = {};
-
+let simData={};
 function calc(){
   const consumo=+document.getElementById('consumo').value;
   const bolletta=+document.getElementById('bolletta').value;
@@ -620,16 +613,13 @@ function calc(){
   const co2=Math.round(prod*0.41);
   const pb=costo/risp;
   const r25=Math.round(risp*25-costo);
-
   simData={consumo,bolletta,potenza,zona:zonaName,costo,tariffa:tariffa.toFixed(4),prod,autoc,immessa,rete,risp,cop,co2,pb:pb.toFixed(1),r25};
-
   document.getElementById('res-prod').textContent=fmt(prod)+' kWh';
   document.getElementById('res-risparmio').textContent='€ '+fmt(risp);
   document.getElementById('res-copertura').textContent=cop+'%';
   document.getElementById('res-co2').textContent=fmt(co2)+' kg';
   document.getElementById('res-payback').textContent=pb.toFixed(1)+' anni';
   document.getElementById('res-25y').textContent='€ '+fmt(r25);
-
   const aP=Math.min(100,Math.round(autoc/consumo*100));
   const rP=Math.min(100,Math.round(rete/consumo*100));
   const iP=Math.min(100,Math.round(immessa/prod*100));
@@ -639,12 +629,10 @@ function calc(){
   document.getElementById('bl-auto').textContent=fmt(autoc)+' kWh ('+aP+'%)';
   document.getElementById('bl-rete').textContent=fmt(rete)+' kWh ('+rP+'%)';
   document.getElementById('bl-immessa').textContent=fmt(immessa)+' kWh ('+iP+'%)';
-
   const badge=document.getElementById('pb-badge');
   if(pb<=10){badge.style.background='rgba(16,185,129,0.15)';badge.style.color='#10B981';badge.textContent='✔ Investimento vantaggioso';}
   else{badge.style.background='rgba(245,158,11,0.15)';badge.style.color='#F59E0B';badge.textContent='⚠ Valuta attentamente';}
 }
-
 function bind(id,outId,fn){
   const el=document.getElementById(id),out=document.getElementById(outId);
   el.addEventListener('input',()=>{out.textContent=fn(+el.value);calc();});
@@ -656,12 +644,10 @@ bind('costo','costo-val',v=>'€ '+fmt(v));
 document.getElementById('zona').addEventListener('change',calc);
 calc();
 
-// ── MODAL ──
 function openModal(){document.getElementById('modal').classList.add('open');}
 function closeModal(){document.getElementById('modal').classList.remove('open');}
 function handleOverlayClick(e){if(e.target===document.getElementById('modal'))closeModal();}
 
-// ── PAGAMENTO E ANALISI AI ──
 async function handlePayment(){
   const email=document.getElementById('modal-email').value.trim();
   if(!email||!email.includes('@')){
@@ -672,25 +658,16 @@ async function handlePayment(){
   const btn=document.getElementById('btn-pay');
   btn.disabled=true;
   btn.textContent="Reindirizzamento a Stripe...";
-
-  // Salva i dati simulazione nel localStorage prima di andare su Stripe
-  localStorage.setItem('solarmente_sim', JSON.stringify(simData));
-  localStorage.setItem('solarmente_email', email);
-
-  // Reindirizza a Stripe
+  localStorage.setItem('solarmente_sim',JSON.stringify(simData));
+  localStorage.setItem('solarmente_email',email);
   window.location.href='https://buy.stripe.com/4gM7sNgIDeym8spbtb4Vy00?prefilled_email='+encodeURIComponent(email)+'&success_url='+encodeURIComponent('https://solarmente-beta.vercel.app/?paid=true');
-
   btn.disabled=false;
   btn.textContent="🔒 Paga €9,90 e sblocca l'analisi";
 }
 
 async function generatePremiumAnalysis(){
   try{
-    const res=await fetch('/api/analyze',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({simData})
-    });
+    const res=await fetch('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({simData})});
     const data=await res.json();
     document.getElementById('premium-content').innerHTML=data.result||'<p style="color:var(--muted)">Analisi non disponibile al momento.</p>';
   }catch(e){
@@ -698,7 +675,6 @@ async function generatePremiumAnalysis(){
   }
 }
 
-// ── MODALITÀ TEST ──
 async function activateTestMode(){
   document.getElementById('test-btn-wrap').style.display='none';
   const box=document.getElementById('premium-result');
@@ -707,28 +683,14 @@ async function activateTestMode(){
   await generatePremiumAnalysis();
 }
 
-// ── MODALITÀ TEST ──
-async function activateTestMode(){
-  document.getElementById('test-btn-wrap').style.display='none';
-  const box=document.getElementById('premium-result');
-  box.classList.add('visible');
-  box.scrollIntoView({behavior:'smooth',block:'start'});
-  await generatePremiumAnalysis();
-}
-
-// ── RITORNO DA STRIPE ──
-window.addEventListener('load', async ()=>{
+window.addEventListener('load',async()=>{
   const params=new URLSearchParams(window.location.search);
   const paid=params.get('paid');
   const savedSim=localStorage.getItem('solarmente_sim');
-
   if(paid==='true'){
     if(savedSim){
-      // Ripristina dati simulazione
       const saved=JSON.parse(savedSim);
       simData=saved;
-
-      // Aggiorna i display dei cursori con i valori salvati
       document.getElementById('consumo').value=saved.consumo;
       document.getElementById('consumo-val').textContent=fmt(saved.consumo)+' kWh';
       document.getElementById('bolletta').value=saved.bolletta;
@@ -738,56 +700,36 @@ window.addEventListener('load', async ()=>{
       document.getElementById('costo').value=saved.costo;
       document.getElementById('costo-val').textContent='€ '+fmt(saved.costo);
       calc();
-    } else {
-      // Nessun dato salvato — usa i valori di default già nel simulatore
-      calc();
-    }
-
-    // Mostra il box analisi
+    }else{calc();}
     const box=document.getElementById('premium-result');
     box.classList.add('visible');
-
-    // Scrolla alla sezione simulatore prima, poi al box
     document.getElementById('simulatore').scrollIntoView({behavior:'smooth'});
     setTimeout(()=>box.scrollIntoView({behavior:'smooth',block:'start'}),800);
-
-    // Genera analisi AI
     await generatePremiumAnalysis();
-
-    // Pulisci localStorage e URL
     localStorage.removeItem('solarmente_sim');
     localStorage.removeItem('solarmente_email');
-    window.history.replaceState({}, document.title, window.location.pathname);
+    window.history.replaceState({},document.title,window.location.pathname);
   }
 });
+
 function scrollToSection(id){
   const el=document.getElementById(id);
   if(!el)return;
-  const offset=80;
-  const top=el.getBoundingClientRect().top+window.scrollY-offset;
+  const top=el.getBoundingClientRect().top+window.scrollY-80;
   window.scrollTo({top,behavior:'smooth'});
 }
-
 function navTo(e,link){
   e.preventDefault();
-  const id=link.getAttribute('data-target');
-  scrollToSection(id);
+  scrollToSection(link.getAttribute('data-target'));
   document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
   link.classList.add('active');
 }
-
-// Active link on scroll
 const sections=['come-funziona','vantaggi','simulatore','testimonials'];
 window.addEventListener('scroll',()=>{
   const scrollY=window.scrollY+120;
   let current='';
-  sections.forEach(id=>{
-    const el=document.getElementById(id);
-    if(el&&el.offsetTop<=scrollY)current=id;
-  });
-  document.querySelectorAll('.nav-links a').forEach(a=>{
-    a.classList.toggle('active', a.getAttribute('data-target')===current);
-  });
+  sections.forEach(id=>{const el=document.getElementById(id);if(el&&el.offsetTop<=scrollY)current=id;});
+  document.querySelectorAll('.nav-links a').forEach(a=>{a.classList.toggle('active',a.getAttribute('data-target')===current);});
 },{passive:true});
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
 document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
