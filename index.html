@@ -208,6 +208,23 @@ footer{padding:60px 6% 36px;border-top:1px solid var(--border);}
 .fade-up{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease;}
 .fade-up.visible{opacity:1;transform:none;}
 
+/* LEGAL MODAL */
+.legal-overlay{display:none;position:fixed;inset:0;z-index:600;background:rgba(5,12,25,0.88);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;}
+.legal-overlay.open{display:flex;}
+.legal-box{background:var(--bg2);border:1px solid var(--border);border-radius:24px;width:100%;max-width:520px;max-height:80vh;overflow-y:auto;padding:36px;position:relative;animation:slideUp .3s ease;}
+.legal-box h2{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;margin-bottom:16px;color:var(--text);}
+.legal-box p{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:12px;}
+.legal-box h3{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin:20px 0 8px;color:var(--text);}
+.legal-close{position:absolute;top:16px;right:16px;background:var(--card2);border:none;color:var(--muted);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;}
+.legal-close:hover{color:var(--text);}
+
+/* PAGAMENTO CONFERMATO */
+.payment-success{display:none;text-align:center;padding:32px 20px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:20px;margin-bottom:20px;}
+.payment-success.visible{display:block;}
+.payment-success .check{font-size:48px;margin-bottom:12px;}
+.payment-success h3{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:#10B981;margin-bottom:8px;}
+.payment-success p{font-size:14px;color:var(--muted);line-height:1.6;}
+
 /* ── MOBILE ── */
 @media(max-width:768px){
   .hero-visual,.vantaggi-wrap .vantaggio-img{display:none;}
@@ -558,16 +575,31 @@ footer{padding:60px 6% 36px;border-top:1px solid var(--border);}
     <div class="footer-links">
       <h5>Legale</h5>
       <ul>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Termini e condizioni</a></li>
-        <li><a href="#">Cookie Policy</a></li>
+        <li><a href="#" onclick="openLegal('privacy')">Privacy Policy</a></li>
+        <li><a href="#" onclick="openLegal('termini')">Termini e condizioni</a></li>
+        <li><a href="#" onclick="openLegal('cookie')">Cookie Policy</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2025 SolarMente — Tutti i diritti riservati</p>
+    <p>© 2026 SolarMente — Tutti i diritti riservati</p>
   </div>
 </footer>
+
+<!-- PAYMENT SUCCESS -->
+<div class="payment-success" id="payment-success">
+  <div class="check">✅</div>
+  <h3>Pagamento ricevuto!</h3>
+  <p>Ottimo! Il tuo pagamento è andato a buon fine.<br>Stiamo generando la tua analisi personalizzata...</p>
+</div>
+
+<!-- LEGAL MODALS -->
+<div class="legal-overlay" id="legal-modal" onclick="handleLegalOverlay(event)">
+  <div class="legal-box">
+    <button class="legal-close" onclick="closeLegal()">✕</button>
+    <div id="legal-content"></div>
+  </div>
+</div>
 
 <!-- MODAL PAGAMENTO -->
 <div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
@@ -594,6 +626,8 @@ footer{padding:60px 6% 36px;border-top:1px solid var(--border);}
 <script>
 function fmt(n){return n.toLocaleString('it-IT',{maximumFractionDigits:0});}
 let simData={};
+let analysisResult='';
+
 function calc(){
   const consumo=+document.getElementById('consumo').value;
   const bolletta=+document.getElementById('bolletta').value;
@@ -632,7 +666,17 @@ function calc(){
   const badge=document.getElementById('pb-badge');
   if(pb<=10){badge.style.background='rgba(16,185,129,0.15)';badge.style.color='#10B981';badge.textContent='✔ Investimento vantaggioso';}
   else{badge.style.background='rgba(245,158,11,0.15)';badge.style.color='#F59E0B';badge.textContent='⚠ Valuta attentamente';}
+
+  // Reset analisi se l'utente cambia i cursori
+  if(analysisResult){
+    analysisResult='';
+    localStorage.removeItem('solarmente_analysis');
+    document.getElementById('premium-result').classList.remove('visible');
+    document.getElementById('premium-content').innerHTML='<div class="pr-loading"><div class="spinner"></div><p>Sto elaborando la tua analisi personalizzata...</p></div>';
+    document.getElementById('test-btn-wrap').style.display='block';
+  }
 }
+
 function bind(id,outId,fn){
   const el=document.getElementById(id),out=document.getElementById(outId);
   el.addEventListener('input',()=>{out.textContent=fn(+el.value);calc();});
@@ -647,6 +691,49 @@ calc();
 function openModal(){document.getElementById('modal').classList.add('open');}
 function closeModal(){document.getElementById('modal').classList.remove('open');}
 function handleOverlayClick(e){if(e.target===document.getElementById('modal'))closeModal();}
+
+// LEGAL MODALS
+const legalContent={
+  privacy:`<h2>Privacy Policy</h2>
+    <p>Ultimo aggiornamento: gennaio 2026</p>
+    <h3>Titolare del trattamento</h3>
+    <p>SolarMente raccoglie e tratta i dati personali degli utenti esclusivamente per le finalità descritte in questa policy.</p>
+    <h3>Dati raccolti</h3>
+    <p>Raccogliamo solo l'indirizzo email fornito volontariamente al momento del pagamento, utilizzato esclusivamente per la gestione della transazione tramite Stripe.</p>
+    <h3>Finalità del trattamento</h3>
+    <p>I dati sono trattati per: elaborare il pagamento, fornire il servizio di analisi AI richiesto, adempiere agli obblighi di legge.</p>
+    <h3>Conservazione</h3>
+    <p>I dati sono conservati per il tempo strettamente necessario e comunque non oltre 12 mesi dalla raccolta.</p>
+    <h3>Diritti dell'utente</h3>
+    <p>Hai diritto di accedere, rettificare, cancellare i tuoi dati. Per esercitare questi diritti contattaci via email.</p>`,
+  termini:`<h2>Termini e condizioni</h2>
+    <p>Ultimo aggiornamento: gennaio 2026</p>
+    <h3>Servizio offerto</h3>
+    <p>SolarMente offre un simulatore fotovoltaico gratuito e un'analisi AI avanzata a pagamento (€9,90 una tantum). Le analisi sono generate da intelligenza artificiale a scopo informativo e non sostituiscono una consulenza professionale.</p>
+    <h3>Pagamento</h3>
+    <p>Il pagamento viene gestito in modo sicuro tramite Stripe. Non conserviamo dati di pagamento. Il servizio è disponibile immediatamente dopo il pagamento.</p>
+    <h3>Limitazione di responsabilità</h3>
+    <p>Le analisi fornite sono stime basate sui dati inseriti dall'utente. SolarMente non garantisce risultati specifici e non è responsabile per decisioni prese sulla base delle analisi generate.</p>
+    <h3>Rimborsi</h3>
+    <p>Data la natura digitale del servizio, non è previsto rimborso una volta che l'analisi è stata generata e consegnata.</p>`,
+  cookie:`<h2>Cookie Policy</h2>
+    <p>Ultimo aggiornamento: gennaio 2026</p>
+    <h3>Cookie tecnici</h3>
+    <p>Utilizziamo esclusivamente cookie tecnici e localStorage per salvare temporaneamente i dati della simulazione e l'analisi generata. Questi dati rimangono nel tuo browser e non vengono trasmessi a server terzi.</p>
+    <h3>Cookie di terze parti</h3>
+    <p>Stripe, il nostro provider di pagamento, potrebbe utilizzare cookie propri durante il processo di pagamento. Per maggiori informazioni consulta la privacy policy di Stripe.</p>
+    <h3>Google Fonts</h3>
+    <p>Utilizziamo Google Fonts per il caricamento dei caratteri tipografici. Google potrebbe raccogliere dati tecnici anonimi.</p>
+    <h3>Come disabilitare i cookie</h3>
+    <p>Puoi disabilitare i cookie dalle impostazioni del tuo browser. Tieni presente che alcune funzionalità del sito potrebbero non funzionare correttamente senza cookie tecnici.</p>`
+};
+
+function openLegal(type){
+  document.getElementById('legal-content').innerHTML=legalContent[type];
+  document.getElementById('legal-modal').classList.add('open');
+}
+function closeLegal(){document.getElementById('legal-modal').classList.remove('open');}
+function handleLegalOverlay(e){if(e.target===document.getElementById('legal-modal'))closeLegal();}
 
 async function handlePayment(){
   const email=document.getElementById('modal-email').value.trim();
@@ -669,7 +756,13 @@ async function generatePremiumAnalysis(){
   try{
     const res=await fetch('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({simData})});
     const data=await res.json();
-    document.getElementById('premium-content').innerHTML=data.result||'<p style="color:var(--muted)">Analisi non disponibile al momento.</p>';
+    analysisResult=data.result||'';
+    document.getElementById('premium-content').innerHTML=analysisResult||'<p style="color:var(--muted)">Analisi non disponibile al momento.</p>';
+    // Salva nel localStorage
+    if(analysisResult){
+      localStorage.setItem('solarmente_analysis',analysisResult);
+      localStorage.setItem('solarmente_analysis_sim',JSON.stringify(simData));
+    }
   }catch(e){
     document.getElementById('premium-content').innerHTML='<p style="color:var(--muted)">Errore nella generazione. Riprova tra qualche istante.</p>';
   }
@@ -686,10 +779,15 @@ async function activateTestMode(){
 window.addEventListener('load',async()=>{
   const params=new URLSearchParams(window.location.search);
   const paid=params.get('paid');
-  const savedSim=localStorage.getItem('solarmente_sim');
+
+  // Controlla se c'è un'analisi salvata nel localStorage
+  const savedAnalysis=localStorage.getItem('solarmente_analysis');
+  const savedSim=localStorage.getItem('solarmente_analysis_sim');
+
   if(paid==='true'){
-    if(savedSim){
-      const saved=JSON.parse(savedSim);
+    const simFromStorage=localStorage.getItem('solarmente_sim');
+    if(simFromStorage){
+      const saved=JSON.parse(simFromStorage);
       simData=saved;
       document.getElementById('consumo').value=saved.consumo;
       document.getElementById('consumo-val').textContent=fmt(saved.consumo)+' kWh';
@@ -701,14 +799,44 @@ window.addEventListener('load',async()=>{
       document.getElementById('costo-val').textContent='€ '+fmt(saved.costo);
       calc();
     }else{calc();}
+
+    // Mostra conferma pagamento
+    const successBox=document.getElementById('payment-success');
+    successBox.classList.add('visible');
+
+    // Mostra box analisi
     const box=document.getElementById('premium-result');
     box.classList.add('visible');
     document.getElementById('simulatore').scrollIntoView({behavior:'smooth'});
-    setTimeout(()=>box.scrollIntoView({behavior:'smooth',block:'start'}),800);
+    setTimeout(()=>{
+      successBox.scrollIntoView({behavior:'smooth',block:'start'});
+      setTimeout(()=>box.scrollIntoView({behavior:'smooth',block:'start'}),800);
+    },300);
+
+    // Genera analisi
     await generatePremiumAnalysis();
+
     localStorage.removeItem('solarmente_sim');
     localStorage.removeItem('solarmente_email');
     window.history.replaceState({},document.title,window.location.pathname);
+
+  } else if(savedAnalysis && savedSim){
+    // Ripristina analisi salvata al refresh
+    const saved=JSON.parse(savedSim);
+    simData=saved;
+    document.getElementById('consumo').value=saved.consumo;
+    document.getElementById('consumo-val').textContent=fmt(saved.consumo)+' kWh';
+    document.getElementById('bolletta').value=saved.bolletta;
+    document.getElementById('bolletta-val').textContent='€ '+fmt(saved.bolletta);
+    document.getElementById('potenza').value=saved.potenza;
+    document.getElementById('potenza-val').textContent=saved.potenza+' kWp';
+    document.getElementById('costo').value=saved.costo;
+    document.getElementById('costo-val').textContent='€ '+fmt(saved.costo);
+    calc();
+    analysisResult=savedAnalysis;
+    document.getElementById('premium-content').innerHTML=savedAnalysis;
+    document.getElementById('premium-result').classList.add('visible');
+    document.getElementById('test-btn-wrap').style.display='none';
   }
 });
 
