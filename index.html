@@ -527,6 +527,12 @@ footer{padding:60px 6% 36px;border-top:1px solid var(--border);}
         <div id="premium-content">
           <div class="pr-loading"><div class="spinner"></div><p>Sto elaborando la tua analisi personalizzata...</p></div>
         </div>
+        <div id="pdf-btn-wrap" style="display:none;margin-top:20px;text-align:center;">
+          <button onclick="downloadPDF()" style="background:transparent;border:1.5px solid rgba(255,215,0,0.4);color:var(--gold);border-radius:12px;padding:12px 28px;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;cursor:pointer;">
+            📄 Scarica analisi
+          </button>
+          <p style="font-size:11px;color:var(--muted);margin-top:8px;">Salvala sul tuo dispositivo per non perderla</p>
+        </div>
       </div>
 
     </div>
@@ -758,10 +764,10 @@ async function generatePremiumAnalysis(){
     const data=await res.json();
     analysisResult=data.result||'';
     document.getElementById('premium-content').innerHTML=analysisResult||'<p style="color:var(--muted)">Analisi non disponibile al momento.</p>';
-    // Salva nel localStorage
     if(analysisResult){
       localStorage.setItem('solarmente_analysis',analysisResult);
       localStorage.setItem('solarmente_analysis_sim',JSON.stringify(simData));
+      showPdfButton();
     }
   }catch(e){
     document.getElementById('premium-content').innerHTML='<p style="color:var(--muted)">Errore nella generazione. Riprova tra qualche istante.</p>';
@@ -837,8 +843,57 @@ window.addEventListener('load',async()=>{
     document.getElementById('premium-content').innerHTML=savedAnalysis;
     document.getElementById('premium-result').classList.add('visible');
     document.getElementById('test-btn-wrap').style.display='none';
+    showPdfButton();
   }
 });
+
+function showPdfButton(){
+  document.getElementById('pdf-btn-wrap').style.display='block';
+}
+
+function downloadPDF(){
+  const content=document.getElementById('premium-content').innerText;
+  const d=simData;
+  const html=`<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Analisi SolarMente</title>
+<style>
+  body{font-family:Arial,sans-serif;max-width:700px;margin:40px auto;color:#1a1a2e;line-height:1.7;}
+  h1{color:#F59E0B;font-size:24px;margin-bottom:4px;}
+  .sub{color:#64748B;font-size:13px;margin-bottom:24px;}
+  .dati{background:#f8f9fa;border-radius:8px;padding:16px;margin-bottom:24px;font-size:13px;}
+  .dati b{color:#1a1a2e;}
+  h2{color:#F59E0B;font-size:16px;margin:24px 0 8px;text-transform:uppercase;letter-spacing:.06em;}
+  p{font-size:14px;margin-bottom:10px;}
+  .footer{margin-top:40px;padding-top:16px;border-top:1px solid #e2e8f0;font-size:11px;color:#94A3B8;text-align:center;}
+</style>
+</head>
+<body>
+<h1>👑 La tua Analisi Avanzata AI</h1>
+<div class="sub">Generata da SolarMente — solarmente-beta.vercel.app</div>
+<div class="dati">
+  <b>Consumi:</b> ${d.consumo} kWh/anno &nbsp;|&nbsp;
+  <b>Bolletta:</b> €${d.bolletta}/mese &nbsp;|&nbsp;
+  <b>Potenza:</b> ${d.potenza} kWp &nbsp;|&nbsp;
+  <b>Zona:</b> ${d.zona}<br>
+  <b>Costo impianto:</b> €${d.costo} &nbsp;|&nbsp;
+  <b>Risparmio annuo:</b> €${d.risp} &nbsp;|&nbsp;
+  <b>Payback:</b> ${d.pb} anni
+</div>
+${content}
+<div class="footer">© 2026 SolarMente — Analisi generata da intelligenza artificiale a scopo informativo</div>
+</body>
+</html>`;
+  const blob=new Blob([html],{type:'text/html'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='analisi-solarmente.html';
+  a.click();
+  URL.revokeObjectURL(url);
+}
 
 function scrollToSection(id){
   const el=document.getElementById(id);
