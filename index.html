@@ -852,7 +852,7 @@ function showPdfButton(){
 }
 
 function downloadPDF(){
-  const content=document.getElementById('premium-content').innerText;
+  const content=document.getElementById('premium-content').innerHTML;
   const d=simData;
   const html=`<!DOCTYPE html>
 <html lang="it">
@@ -860,13 +860,19 @@ function downloadPDF(){
 <meta charset="UTF-8">
 <title>Analisi SolarMente</title>
 <style>
-  body{font-family:Arial,sans-serif;max-width:700px;margin:40px auto;color:#1a1a2e;line-height:1.7;}
-  h1{color:#F59E0B;font-size:24px;margin-bottom:4px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:Arial,sans-serif;max-width:720px;margin:40px auto;color:#1a1a2e;line-height:1.7;padding:0 20px;}
+  h1{color:#F59E0B;font-size:26px;margin-bottom:4px;font-weight:800;}
   .sub{color:#64748B;font-size:13px;margin-bottom:24px;}
-  .dati{background:#f8f9fa;border-radius:8px;padding:16px;margin-bottom:24px;font-size:13px;}
+  .dati{background:#f8f9fa;border-radius:10px;padding:16px 20px;margin-bottom:28px;font-size:13px;border-left:4px solid #F59E0B;}
   .dati b{color:#1a1a2e;}
-  h2{color:#F59E0B;font-size:16px;margin:24px 0 8px;text-transform:uppercase;letter-spacing:.06em;}
-  p{font-size:14px;margin-bottom:10px;}
+  .pr-section{margin-bottom:24px;padding:20px;background:#f8f9fa;border-radius:10px;border-left:4px solid #F59E0B;}
+  .pr-section h4{font-size:13px;font-weight:700;color:#F59E0B;margin-bottom:10px;text-transform:uppercase;letter-spacing:.08em;}
+  .pr-section p{font-size:14px;color:#374151;line-height:1.75;margin-bottom:8px;}
+  .pr-section li{font-size:14px;color:#374151;line-height:1.75;margin-bottom:4px;}
+  .pr-section ul{padding-left:18px;margin-top:4px;}
+  .pr-loading{display:none;}
+  .spinner{display:none;}
   .footer{margin-top:40px;padding-top:16px;border-top:1px solid #e2e8f0;font-size:11px;color:#94A3B8;text-align:center;}
 </style>
 </head>
@@ -877,10 +883,11 @@ function downloadPDF(){
   <b>Consumi:</b> ${d.consumo} kWh/anno &nbsp;|&nbsp;
   <b>Bolletta:</b> €${d.bolletta}/mese &nbsp;|&nbsp;
   <b>Potenza:</b> ${d.potenza} kWp &nbsp;|&nbsp;
-  <b>Zona:</b> ${d.zona}<br>
+  <b>Zona:</b> ${d.zona}<br><br>
   <b>Costo impianto:</b> €${d.costo} &nbsp;|&nbsp;
   <b>Risparmio annuo:</b> €${d.risp} &nbsp;|&nbsp;
-  <b>Payback:</b> ${d.pb} anni
+  <b>Payback:</b> ${d.pb} anni &nbsp;|&nbsp;
+  <b>Risparmio 25 anni:</b> €${d.r25}
 </div>
 ${content}
 <div class="footer">© 2026 SolarMente — Analisi generata da intelligenza artificiale a scopo informativo</div>
