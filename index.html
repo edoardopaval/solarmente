@@ -117,6 +117,14 @@ select:focus{border-color:#D97706;}
 .btn-premium{width:100%;padding:16px;border-radius:980px;border:none;background:var(--blue);color:#fff;font-family:'Inter',sans-serif;font-weight:600;font-size:16px;cursor:pointer;transition:background .2s,transform .15s;letter-spacing:-0.01em;}
 .btn-premium:hover{background:var(--blue-dark);transform:translateY(-1px);}
 
+/* RESULT ACTIONS */
+.result-actions{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;}
+.btn-action{flex:1;min-width:140px;padding:12px 20px;border-radius:980px;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-pdf{background:#1D1D1F;color:#fff;border:none;}
+.btn-pdf:hover{background:#3D3D3F;}
+.btn-reset{background:transparent;color:#1D1D1F;border:1.5px solid #D2D2D7;}
+.btn-reset:hover{border-color:#1D1D1F;background:#F5F5F7;}
+
 /* TEST BUTTON */
 #test-btn-wrap{text-align:center;margin-top:14px;}
 #test-btn-wrap button{background:transparent;border:1px dashed var(--border);color:var(--text3);border-radius:8px;padding:6px 14px;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;}
@@ -390,6 +398,10 @@ footer{padding:60px 24px 40px;border-top:0.5px solid var(--border);}
         <div id="premium-content">
           <div class="pr-loading"><div class="spinner"></div><p>Sto elaborando la tua analisi personalizzata...</p></div>
         </div>
+        <div class="result-actions" id="result-actions" style="display:none;">
+          <button class="btn-action btn-pdf" onclick="downloadPDF()">↓ Scarica PDF</button>
+          <button class="btn-action btn-reset" onclick="resetAnalysis()">↺ Nuova analisi</button>
+        </div>
       </div>
     </div>
   </div>
@@ -531,6 +543,7 @@ async function generatePremiumAnalysis(){
     document.getElementById('premium-content').innerHTML=result;
     localStorage.setItem('solarmente_analysis',result);
     localStorage.setItem('solarmente_sim_done',JSON.stringify(simData));
+    document.getElementById('result-actions').style.display='flex';
   }catch(e){
     document.getElementById('premium-content').innerHTML='<p style="color:var(--text2)">Errore nella generazione. Riprova tra qualche istante.</p>';
   }
@@ -565,6 +578,7 @@ window.addEventListener('load',async()=>{
     }
     document.getElementById('premium-result').classList.add('visible');
     document.getElementById('premium-content').innerHTML=savedAnalysis;
+    document.getElementById('result-actions').style.display='flex';
     return;
   }
   if(paid==='true'){
@@ -595,6 +609,30 @@ window.addEventListener('load',async()=>{
     window.history.replaceState({},document.title,window.location.pathname);
   }
 });
+
+function downloadPDF(){
+  const analysis=document.getElementById('premium-content').innerHTML;
+  const sim=simData;
+  const html=`<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>Analisi SolarMente</title><style>body{font-family:system-ui,sans-serif;max-width:700px;margin:40px auto;padding:0 24px;color:#1D1D1F;line-height:1.6;}h1{font-size:24px;font-weight:600;margin-bottom:4px;}h2{font-size:16px;color:#D97706;text-transform:uppercase;letter-spacing:0.04em;margin:24px 0 8px;}p,li{font-size:14px;color:#3D3D3F;}ul{padding-left:20px;}.header{border-bottom:2px solid #F59E0B;padding-bottom:16px;margin-bottom:24px;}.meta{font-size:13px;color:#6E6E73;margin-top:4px;}.dati{background:#F5F5F7;border-radius:12px;padding:16px;margin-bottom:24px;display:grid;grid-template-columns:1fr 1fr;gap:8px;}.dato{font-size:13px;}.dato strong{display:block;font-weight:600;font-size:15px;}.footer{margin-top:40px;padding-top:16px;border-top:1px solid #E5E5EA;font-size:12px;color:#AEAEB2;}</style></head><body><div class="header"><h1>La tua Analisi Avanzata</h1><p class="meta">Generata da SolarMente · ${new Date().toLocaleDateString('it-IT')}</p></div><div class="dati"><div class="dato"><strong>${sim.consumo?.toLocaleString('it-IT')} kWh</strong>Consumi annui</div><div class="dato"><strong>€${sim.risp?.toLocaleString('it-IT')}</strong>Risparmio annuo</div><div class="dato"><strong>${sim.potenza} kWp</strong>Potenza impianto</div><div class="dato"><strong>${sim.pb} anni</strong>Payback</div><div class="dato"><strong>€${sim.costo?.toLocaleString('it-IT')}</strong>Costo impianto</div><div class="dato"><strong>${sim.zona}</strong>Zona geografica</div></div>${analysis}<div class="footer">Analisi generata da SolarMente — solarmente-beta.vercel.app · Documento informativo, non costituisce consulenza professionale.</div></body></html>`;
+  const blob=new Blob([html],{type:'text/html'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='analisi-solarmente.html';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function resetAnalysis(){
+  if(!confirm('Vuoi generare una nuova analisi? Quella attuale verrà eliminata.'))return;
+  localStorage.removeItem('solarmente_analysis');
+  localStorage.removeItem('solarmente_sim_done');
+  document.getElementById('premium-result').classList.remove('visible');
+  document.getElementById('result-actions').style.display='none';
+  document.getElementById('premium-content').innerHTML='<div class="pr-loading"><div class="spinner"></div><p>Sto elaborando la tua analisi personalizzata...</p></div>';
+  document.getElementById('payment-confirm').classList.remove('visible');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 
 function scrollToSection(id){
   const el=document.getElementById(id);
