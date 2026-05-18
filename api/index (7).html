@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SolarMente — Energia Solare Intelligente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --blue:#D97706;
+  --blue-dark:#B45309;
+  --blue-light:#FEF3C7;
+  --text:#1D1D1F;
+  --text2:#6E6E73;
+  --text3:#AEAEB2;
+  --bg:#FFFFFF;
+  --bg2:#F5F5F7;
+  --bg3:#FAFAFA;
+  --border:#D2D2D7;
+  --border-light:#E5E5EA;
+  --shadow:0 2px 20px rgba(0,0,0,0.08);
+  --shadow-lg:0 8px 40px rgba(0,0,0,0.12);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(255,255,255,0.85);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:0.5px solid rgba(0,0,0,0.1);}
+.logo{font-size:17px;font-weight:600;color:var(--text);letter-spacing:-0.3px;}
+.logo{color:var(--tx);}
+.logo span{color:#F59E0B;}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:13px;font-weight:400;transition:color .2s;cursor:pointer;}
+.nav-links a:hover,.nav-links a.active{color:var(--text);}
+.nav-cta{background:var(--blue);color:#fff;border:none;border-radius:980px;padding:7px 16px;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:background .2s;}
+.nav-cta:hover{background:var(--blue-dark);}
+
+/* HERO */
+#hero{display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 24px 80px;background:var(--bg);}
+.hero-inner{max-width:700px;}
+.hero-eyebrow{font-size:13px;font-weight:500;color:#D97706;letter-spacing:0.02em;margin-bottom:20px;display:block;}
+h1{font-size:clamp(44px,7vw,80px);font-weight:600;line-height:1.05;letter-spacing:-0.04em;color:var(--text);margin-bottom:24px;}
+h1 em{font-style:normal;color:var(--blue);}
+.hero-sub{font-size:19px;font-weight:300;color:var(--text2);line-height:1.6;max-width:520px;margin:0 auto 40px;}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{background:var(--blue);color:#fff;border:none;border-radius:980px;padding:14px 28px;font-family:'Inter',sans-serif;font-size:15px;font-weight:500;cursor:pointer;text-decoration:none;display:inline-block;transition:background .2s,transform .15s;}
+.btn-primary:hover{background:var(--blue-dark);transform:translateY(-1px);}
+.btn-ghost{background:transparent;color:var(--blue);border:1.5px solid var(--blue);border-radius:980px;padding:14px 28px;font-size:15px;font-weight:500;cursor:pointer;text-decoration:none;display:inline-block;transition:all .2s;}
+.btn-ghost:hover{background:var(--blue-light);}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--border-light);margin:0 24px;}
+
+/* COME FUNZIONA */
+#come-funziona{padding:100px 24px;background:var(--bg);}
+.section-center{text-align:center;max-width:600px;margin:0 auto 64px;}
+.eyebrow{font-size:13px;font-weight:500;color:#D97706;letter-spacing:0.02em;margin-bottom:12px;display:block;}
+.section-title{font-size:clamp(28px,4vw,48px);font-weight:600;letter-spacing:-0.03em;line-height:1.1;color:var(--text);margin-bottom:16px;}
+.section-sub{font-size:17px;font-weight:300;color:var(--text2);line-height:1.6;}
+.steps-wrap{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px;margin:0 auto;}
+.step-card{background:var(--bg2);border-radius:20px;padding:40px 36px;border:none;transition:transform .2s;}
+.step-card:hover{transform:translateY(-4px);}
+.step-num{font-size:13px;font-weight:500;color:var(--blue);margin-bottom:20px;letter-spacing:0.02em;}
+.step-icon-wrap{width:52px;height:52px;background:#fff;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px;box-shadow:var(--shadow);}
+.step-title{font-size:19px;font-weight:600;letter-spacing:-0.02em;color:var(--text);margin-bottom:10px;}
+.step-desc{font-size:15px;font-weight:300;color:var(--text2);line-height:1.6;}
+
+/* SIMULATORE */
+#simulatore{padding:100px 24px;background:var(--bg2);}
+.sim-wrap{max-width:860px;margin:0 auto;}
+.sim-box{background:#fff;border-radius:24px;padding:48px;box-shadow:var(--shadow-lg);}
+.sliders-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px;margin-bottom:40px;}
+.field-label{font-size:12px;font-weight:500;color:var(--text2);letter-spacing:0.02em;margin-bottom:10px;text-transform:uppercase;}
+.field-val{font-size:17px;font-weight:600;color:var(--blue);margin-top:8px;letter-spacing:-0.02em;}
+input[type=range]{width:100%;-webkit-appearance:none;height:3px;border-radius:2px;background:var(--border-light);outline:none;cursor:pointer;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--blue);box-shadow:0 2px 8px rgba(217,119,6,0.35);cursor:pointer;}
+select{width:100%;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-family:'Inter',sans-serif;font-size:14px;font-weight:400;outline:none;cursor:pointer;margin-top:4px;-webkit-appearance:none;}
+select:focus{border-color:#D97706;}
+.results-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:24px;}
+.res-card{background:var(--bg2);border-radius:16px;padding:22px;border:1px solid var(--border-light);}
+.rc-label{font-size:12px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:0.02em;}
+.rc-value{font-size:26px;font-weight:600;letter-spacing:-0.03em;margin-top:6px;color:var(--text);}
+.rc-value.blue{color:var(--blue);}
+.rc-sub{font-size:13px;color:var(--text3);margin-top:4px;}
+.bars-section{margin-bottom:24px;}
+.bar-row-wrap{margin-bottom:14px;}
+.bar-label-row{display:flex;justify-content:space-between;font-size:13px;color:var(--text2);margin-bottom:6px;}
+.bar-track{height:5px;background:var(--border-light);border-radius:3px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:3px;transition:width .6s ease;}
+.payback-row{background:var(--bg2);border-radius:16px;padding:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;border:1px solid var(--border-light);}
+.pb-label{font-size:12px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:0.02em;margin-bottom:4px;}
+.pb-value{font-size:26px;font-weight:600;letter-spacing:-0.03em;color:var(--text);}
+.pb-badge{display:inline-flex;align-items:center;gap:5px;border-radius:980px;padding:4px 12px;font-size:12px;font-weight:500;margin-top:6px;}
+.pb-badge.good{background:#FEF3C7;color:#92400E;}
+.pb-badge.warn{background:#FFF4E5;color:#B45309;}
+
+/* PREMIUM */
+.premium-box{margin-top:32px;border-radius:20px;border:1.5px solid #F59E0B;background:linear-gradient(135deg,#FFFBEB 0%,#FFFFF8 100%);padding:36px;}
+.prem-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px;margin-bottom:8px;}
+.prem-crown{font-size:28px;margin-bottom:8px;}
+.prem-title{font-size:22px;font-weight:600;letter-spacing:-0.02em;color:var(--text);}
+.prem-subtitle{font-size:14px;color:var(--text2);margin-top:4px;}
+.prem-price-wrap{text-align:right;}
+.prem-price{font-size:32px;font-weight:600;letter-spacing:-0.03em;color:var(--blue);}
+.prem-price-note{font-size:12px;color:var(--text3);margin-top:2px;}
+.prem-desc{font-size:15px;color:var(--text2);line-height:1.6;margin:20px 0;max-width:560px;}
+.prem-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px;}
+.pcard{background:#fff;border-radius:14px;padding:18px;border:1px solid var(--border-light);}
+.pcard-icon{display:none;}
+.pcard-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;letter-spacing:-0.01em;}
+.pcard-desc{font-size:12px;color:var(--text2);line-height:1.5;}
+.prem-guarantee{display:flex;align-items:center;gap:10px;background:#fff;border-radius:12px;padding:14px 18px;margin-bottom:24px;border:1px solid var(--border-light);}
+.prem-guarantee p{font-size:13px;color:var(--text2);}
+.btn-premium{width:100%;padding:16px;border-radius:980px;border:none;background:var(--blue);color:#fff;font-family:'Inter',sans-serif;font-weight:600;font-size:16px;cursor:pointer;transition:background .2s,transform .15s;letter-spacing:-0.01em;}
+.btn-premium:hover{background:var(--blue-dark);transform:translateY(-1px);}
+
+/* TEST BUTTON */
+#test-btn-wrap{text-align:center;margin-top:14px;}
+#test-btn-wrap button{background:transparent;border:1px dashed var(--border);color:var(--text3);border-radius:8px;padding:6px 14px;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;}
+
+/* MODAL PAGAMENTO */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.4);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:#fff;border-radius:24px;width:100%;max-width:460px;padding:40px;position:relative;animation:slideUp .3s ease;box-shadow:var(--shadow-lg);}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0;}to{transform:none;opacity:1;}}
+.modal-close{position:absolute;top:16px;right:16px;background:var(--bg2);border:none;color:var(--text2);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;}
+.modal-close:hover{background:var(--border-light);}
+.modal-crown{font-size:32px;margin-bottom:12px;}
+.modal-box h2{font-size:22px;font-weight:600;letter-spacing:-0.02em;margin-bottom:8px;}
+.modal-box p.modal-sub{font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:28px;}
+.modal-form-group{margin-bottom:16px;}
+.modal-form-group label{display:block;font-size:12px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:0.02em;margin-bottom:8px;}
+.modal-form-group input{width:100%;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:12px;padding:12px 16px;font-family:'Inter',sans-serif;font-size:15px;outline:none;transition:border-color .2s;}
+.modal-form-group input:focus{border-color:#D97706;background:#fff;}
+.modal-price-row{display:flex;align-items:center;justify-content:space-between;background:var(--bg2);border-radius:12px;padding:14px 16px;margin-bottom:20px;}
+.modal-price-row span{font-size:14px;color:var(--text2);}
+.modal-price-row strong{font-size:20px;font-weight:600;color:var(--blue);}
+.btn-pay{width:100%;padding:15px;border-radius:980px;border:none;background:var(--blue);color:#fff;font-family:'Inter',sans-serif;font-weight:600;font-size:16px;cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-pay:hover{background:var(--blue-dark);}
+.btn-pay:disabled{opacity:0.5;cursor:not-allowed;}
+.modal-note{font-size:12px;color:var(--text3);text-align:center;margin-top:12px;}
+
+/* CONFERMA PAGAMENTO */
+.payment-confirm{display:none;margin-top:28px;background:#F0FDF9;border-radius:20px;border:1.5px solid #A7F3D0;padding:32px;text-align:center;}
+.payment-confirm.visible{display:block;}
+.payment-confirm-icon{font-size:48px;margin-bottom:12px;}
+.payment-confirm h3{font-size:20px;font-weight:600;letter-spacing:-0.02em;color:#065F46;margin-bottom:8px;}
+.payment-confirm p{font-size:14px;color:#6EE7B7;}
+.payment-confirm-details{display:flex;justify-content:center;gap:16px;margin-top:16px;flex-wrap:wrap;}
+.pcd-item{background:#fff;border-radius:10px;padding:10px 16px;font-size:13px;border:1px solid #A7F3D0;}
+.pcd-item strong{color:#065F46;display:block;font-size:15px;font-weight:600;}
+
+/* RISULTATO PREMIUM */
+.premium-result{display:none;margin-top:28px;background:#fff;border-radius:20px;border:1.5px solid #F59E0B;padding:36px;box-shadow:var(--shadow);}
+.premium-result.visible{display:block;}
+.premium-result-header{display:flex;align-items:center;gap:12px;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--border-light);}
+.premium-result-header h3{font-size:20px;font-weight:600;letter-spacing:-0.02em;color:#D97706;}
+.pr-section{margin-bottom:24px;}
+.pr-section h4{font-size:13px;font-weight:600;color:#D97706;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.04em;}
+.pr-section p,.pr-section li{font-size:15px;line-height:1.7;color:var(--text2);}
+.pr-section ul{padding-left:20px;}
+.pr-section li{margin-bottom:6px;}
+.pr-loading{text-align:center;padding:48px 20px;color:var(--text2);}
+.spinner{width:32px;height:32px;border:2px solid var(--border-light);border-top-color:#D97706;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* FOOTER */
+footer{padding:60px 24px 40px;border-top:0.5px solid var(--border);}
+.footer-inner{max-width:900px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px;margin-bottom:40px;}
+.footer-brand .logo{font-size:17px;}
+.footer-brand p{font-size:13px;color:var(--text2);margin-top:10px;max-width:260px;line-height:1.6;}
+.footer-col h6{font-size:12px;font-weight:600;color:var(--text);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:14px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.footer-col a{font-size:14px;color:var(--text2);text-decoration:none;cursor:pointer;transition:color .2s;}
+.footer-col a:hover{color:var(--text);}
+.footer-bottom{max-width:900px;margin:0 auto;padding-top:24px;border-top:0.5px solid var(--border);font-size:13px;color:var(--text3);}
+
+/* LEGAL MODAL */
+.legal-overlay{display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,0.4);backdrop-filter:blur(10px);align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;}
+.legal-overlay.open{display:flex;}
+.legal-box{background:#fff;border-radius:24px;width:100%;max-width:680px;padding:48px;position:relative;margin:auto;box-shadow:var(--shadow-lg);}
+.legal-close{position:absolute;top:20px;right:20px;background:var(--bg2);border:none;color:var(--text2);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;}
+.legal-close:hover{background:var(--border-light);}
+.legal-box h2{font-size:26px;font-weight:600;letter-spacing:-0.02em;margin-bottom:6px;}
+.legal-date{font-size:13px;color:var(--text3);margin-bottom:32px;display:block;}
+.legal-box h3{font-size:16px;font-weight:600;color:var(--text);margin:24px 0 8px;}
+.legal-box p,.legal-box li{font-size:14px;color:var(--text2);line-height:1.8;}
+.legal-box ul{padding-left:20px;margin-bottom:12px;}
+.legal-box li{margin-bottom:4px;}
+@media(max-width:768px){.legal-box{padding:28px 20px;}}
+
+/* ANIMATIONS */
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-up.visible{opacity:1;transform:none;}
+
+/* MOBILE */
+@media(max-width:768px){
+  nav .nav-links{display:none;}
+  nav{padding:0 16px;}
+  .nav-cta{font-size:12px;padding:6px 14px;}
+  #hero{padding:90px 20px 60px;}
+  h1{font-size:36px;}
+  .hero-sub{font-size:16px;}
+  .hero-btns{flex-direction:column;align-items:center;}
+  .btn-primary,.btn-ghost{width:100%;max-width:300px;text-align:center;}
+  #come-funziona,#simulatore{padding:60px 20px;}
+  .steps-wrap{grid-template-columns:1fr;}
+  .sim-box{padding:24px 20px;}
+  .results-grid{grid-template-columns:1fr;}
+  .prem-cards{grid-template-columns:1fr;}
+  .prem-header{flex-direction:column;}
+  .prem-price-wrap{text-align:left;}
+  .payback-row{flex-direction:column;gap:12px;}
+  .footer-inner{flex-direction:column;gap:28px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo"><span>Solar</span>Mente</div>
+  <ul class="nav-links">
+    <li><a data-target="come-funziona" onclick="navTo(event,this)">Come funziona</a></li>
+    <li><a data-target="simulatore" onclick="navTo(event,this)">Simulatore</a></li>
+  </ul>
+  <button class="nav-cta" onclick="scrollToSection('simulatore')">Prova il simulatore</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner fade-up">
+    <span class="hero-eyebrow">Simulatore fotovoltaico gratuito</span>
+    <h1>Scopri quanto puoi<br>davvero <em>risparmiare</em>.</h1>
+    <p class="hero-sub">Inserisci i tuoi consumi e ottieni in 30 secondi una stima precisa del risparmio con il fotovoltaico. Nessuna registrazione.</p>
+    <div class="hero-btns">
+      <a href="#simulatore" class="btn-primary">Calcola il tuo risparmio</a>
+      <a href="#come-funziona" class="btn-ghost">Come funziona</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COME FUNZIONA -->
+<section id="come-funziona">
+  <div class="section-center fade-up">
+    <span class="eyebrow">Semplice e trasparente</span>
+    <h2 class="section-title">Dal dato al risparmio,<br>in pochi minuti.</h2>
+    <p class="section-sub">Niente consulenti, niente moduli. Solo i tuoi numeri, subito.</p>
+  </div>
+  <div class="steps-wrap fade-up">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      
+      <div class="step-title">Simulazione gratuita</div>
+      <p class="step-desc">Muovi i cursori, scegli la tua zona e ottieni subito produzione stimata, risparmio annuo e tempo di rientro dell'investimento. Nessuna registrazione richiesta.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      
+      <div class="step-title">Analisi AI avanzata</div>
+      <p class="step-desc">Sblocca l'analisi personalizzata a €9,90: taglia ottimale, batteria di accumulo, detrazione IRPEF calcolata sul tuo caso, consigli mirati ed errori da evitare.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SIMULATORE -->
+<section id="simulatore">
+  <div class="sim-wrap">
+    <div class="section-center fade-up" style="margin-bottom:48px;">
+      <span class="eyebrow">Strumento gratuito</span>
+      <h2 class="section-title">Calcola il tuo risparmio.</h2>
+      <p class="section-sub">Inserisci i tuoi dati e vedi i risultati in tempo reale.</p>
+    </div>
+
+    <div class="sim-box fade-up">
+      <div class="sliders-grid">
+        <div>
+          <div class="field-label">Consumi annui</div>
+          <input type="range" id="consumo" min="1000" max="10000" step="100" value="3500">
+          <div class="field-val" id="consumo-val">3.500 kWh</div>
+        </div>
+        <div>
+          <div class="field-label">Bolletta mensile</div>
+          <input type="range" id="bolletta" min="30" max="400" step="5" value="120">
+          <div class="field-val" id="bolletta-val">€ 120</div>
+        </div>
+        <div>
+          <div class="field-label">Potenza impianto</div>
+          <input type="range" id="potenza" min="1" max="20" step="0.5" value="4">
+          <div class="field-val" id="potenza-val">4 kWp</div>
+        </div>
+        <div>
+          <div class="field-label">Costo impianto</div>
+          <input type="range" id="costo" min="3000" max="25000" step="500" value="8000">
+          <div class="field-val" id="costo-val">€ 8.000</div>
+        </div>
+        <div>
+          <div class="field-label">Zona geografica</div>
+          <select id="zona">
+            <option value="1.0">Nord Italia</option>
+            <option value="1.2" selected>Centro Italia</option>
+            <option value="1.45">Sud Italia</option>
+            <option value="1.55">Sicilia / Sardegna</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="results-grid">
+        <div class="res-card"><div class="rc-label">Produzione annua</div><div class="rc-value blue" id="res-prod">—</div><div class="rc-sub">kWh / anno</div></div>
+        <div class="res-card"><div class="rc-label">Risparmio annuo</div><div class="rc-value blue" id="res-risparmio">—</div><div class="rc-sub">€ risparmiati / anno</div></div>
+        <div class="res-card"><div class="rc-label">Copertura consumi</div><div class="rc-value" id="res-copertura">—</div><div class="rc-sub">% fabbisogno coperto</div></div>
+        <div class="res-card"><div class="rc-label">CO₂ evitata</div><div class="rc-value" id="res-co2">—</div><div class="rc-sub">kg CO₂ / anno</div></div>
+      </div>
+
+      <div class="bars-section" style="margin-top:20px;">
+        <div class="bar-row-wrap"><div class="bar-label-row"><span>Autoconsumo</span><span id="bl-auto">—</span></div><div class="bar-track"><div class="bar-fill" id="b-auto" style="background:var(--blue);width:0%"></div></div></div>
+        <div class="bar-row-wrap"><div class="bar-label-row"><span>Energia dalla rete</span><span id="bl-rete">—</span></div><div class="bar-track"><div class="bar-fill" id="b-rete" style="background:#AEAEB2;width:0%"></div></div></div>
+        <div class="bar-row-wrap"><div class="bar-label-row"><span>Energia immessa</span><span id="bl-immessa">—</span></div><div class="bar-track"><div class="bar-fill" id="b-immessa" style="background:#34C759;width:0%"></div></div></div>
+      </div>
+
+      <div class="payback-row">
+        <div>
+          <div class="pb-label">Ritorno sull'investimento</div>
+          <div class="pb-value" id="res-payback">—</div>
+          <div class="pb-badge good" id="pb-badge">✓ Investimento vantaggioso</div>
+        </div>
+        <div style="text-align:right;">
+          <div class="pb-label">Risparmio in 25 anni</div>
+          <div class="pb-value blue" id="res-25y" style="color:var(--blue);">—</div>
+        </div>
+      </div>
+
+      <!-- PREMIUM -->
+      <div class="premium-box">
+        <div class="prem-header">
+          <div>
+            <div class="prem-title">Analisi Avanzata AI</div>
+            <div class="prem-subtitle">Basata esattamente sui tuoi dati — generata in pochi secondi</div>
+          </div>
+          <div class="prem-price-wrap">
+            <div class="prem-price">€9,90</div>
+            <div class="prem-price-note">pagamento unico</div>
+          </div>
+        </div>
+        <p class="prem-desc">La simulazione ti dà i numeri. L'analisi avanzata li interpreta e ti dice esattamente cosa fare per massimizzare il tuo investimento.</p>
+        <div class="prem-cards">
+          <div class="pcard"><div class="pcard-title">Taglia ottimale</div><div class="pcard-desc">Stai sovra o sotto-dimensionando l'impianto?</div></div>
+          <div class="pcard"><div class="pcard-title">Batteria accumulo</div><div class="pcard-desc">Capacità ideale e costo indicativo.</div></div>
+          <div class="pcard"><div class="pcard-title">Detrazione IRPEF</div><div class="pcard-desc">Il calcolo preciso sul tuo impianto.</div></div>
+          <div class="pcard"><div class="pcard-title">Piano 25 anni</div><div class="pcard-desc">Risparmio cumulato anno per anno.</div></div>
+          <div class="pcard"><div class="pcard-title">Consigli mirati</div><div class="pcard-desc">Azioni specifiche per la tua configurazione.</div></div>
+          <div class="pcard"><div class="pcard-title">Errori da evitare</div><div class="pcard-desc">I 3 più comuni per il tuo profilo.</div></div>
+        </div>
+        <div class="prem-guarantee">
+          
+          <p><strong>Analisi istantanea</strong> — ricevi tutto in meno di 30 secondi direttamente sulla pagina.</p>
+        </div>
+        <button class="btn-premium" onclick="openModal()">Sblocca la tua analisi — €9,90</button>
+      </div>
+
+      <!-- TEST BUTTON -->
+      <div id="test-btn-wrap" style="text-align:center;margin-top:14px;">
+        <button onclick="activateTestMode()" style="background:transparent;border:1px dashed var(--border);color:var(--text3);border-radius:8px;padding:6px 14px;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;">Modalità test (solo per admin)</button>
+      </div>
+
+      <!-- CONFERMA PAGAMENTO -->
+      <div class="payment-confirm" id="payment-confirm">
+        
+        <h3>Pagamento completato!</h3>
+        <p>Stiamo generando la tua analisi personalizzata...</p>
+        <div class="payment-confirm-details">
+          <div class="pcd-item"><strong>€9,90</strong>pagato con successo</div>
+          <div class="pcd-item"><strong></strong>Analisi in corso</div>
+        </div>
+      </div>
+
+      <!-- RISULTATO PREMIUM -->
+      <div class="premium-result" id="premium-result">
+        <div class="premium-result-header">
+          
+          <h3>La tua Analisi Avanzata</h3>
+        </div>
+        <div id="premium-content">
+          <div class="pr-loading"><div class="spinner"></div><p>Sto elaborando la tua analisi personalizzata...</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo"><span>Solar</span>Mente</div>
+      <p>Simulatore e analisi AI per impianti fotovoltaici su misura.</p>
+    </div>
+    <div class="footer-col">
+      <h6>Navigazione</h6>
+      <ul>
+        <li><a onclick="scrollToSection('come-funziona')">Come funziona</a></li>
+        <li><a onclick="scrollToSection('simulatore')">Simulatore gratuito</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h6>Legale</h6>
+      <ul>
+        <li><a onclick="openLegal('privacy')">Privacy Policy</a></li>
+        <li><a onclick="openLegal('termini')">Termini e condizioni</a></li>
+        <li><a onclick="openLegal('cookie')">Cookie Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 SolarMente — Tutti i diritti riservati</div>
+</footer>
+
+<!-- MODAL PAGAMENTO -->
+<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    
+    <h2>Analisi Avanzata AI</h2>
+    <p class="modal-sub">Inserisci la tua email per ricevere l'analisi completa basata sui tuoi dati. Pagamento sicuro una tantum.</p>
+    <div class="modal-form-group">
+      <label>La tua email</label>
+      <input type="email" id="modal-email" placeholder="mario@email.it">
+    </div>
+    <div class="modal-price-row">
+      <span>Analisi AI personalizzata</span>
+      <strong>€ 9,90</strong>
+    </div>
+    <button class="btn-pay" id="btn-pay" onclick="handlePayment()">Paga €9,90 e sblocca l'analisi</button>
+    <p class="modal-note">Pagamento sicuro gestito da Stripe. Tornerai automaticamente qui con la tua analisi.</p>
+  </div>
+</div>
+
+<!-- LEGAL MODAL -->
+<div class="legal-overlay" id="legal-modal" onclick="handleLegalOverlay(event)">
+  <div class="legal-box">
+    <button class="legal-close" onclick="closeLegal()">✕</button>
+    <div id="legal-content"></div>
+  </div>
+</div>
+
+<script>
+function fmt(n){return n.toLocaleString('it-IT',{maximumFractionDigits:0});}
+let simData={};
+
+function calc(){
+  const consumo=+document.getElementById('consumo').value;
+  const bolletta=+document.getElementById('bolletta').value;
+  const potenza=+document.getElementById('potenza').value;
+  const zonaEl=document.getElementById('zona');
+  const zona=+zonaEl.value;
+  const zonaName=zonaEl.options[zonaEl.selectedIndex].text;
+  const costo=+document.getElementById('costo').value;
+  const tariffa=(bolletta*12)/consumo;
+  const prod=Math.round(potenza*1050*zona);
+  const autocPct=Math.min(0.7,Math.min(consumo,prod)/prod);
+  const autoc=Math.round(prod*autocPct);
+  const immessa=Math.round(prod-autoc);
+  const rete=Math.round(Math.max(0,consumo-autoc));
+  const risp=Math.round(autoc*tariffa+immessa*0.08);
+  const cop=Math.min(100,Math.round(autoc/consumo*100));
+  const co2=Math.round(prod*0.41);
+  const pb=costo/risp;
+  const r25=Math.round(risp*25-costo);
+  simData={consumo,bolletta,potenza,zona:zonaName,costo,tariffa:tariffa.toFixed(4),prod,autoc,immessa,rete,risp,cop,co2,pb:pb.toFixed(1),r25};
+  document.getElementById('res-prod').textContent=fmt(prod)+' kWh';
+  document.getElementById('res-risparmio').textContent='€ '+fmt(risp);
+  document.getElementById('res-copertura').textContent=cop+'%';
+  document.getElementById('res-co2').textContent=fmt(co2)+' kg';
+  document.getElementById('res-payback').textContent=pb.toFixed(1)+' anni';
+  document.getElementById('res-25y').textContent='€ '+fmt(r25);
+  const aP=Math.min(100,Math.round(autoc/consumo*100));
+  const rP=Math.min(100,Math.round(rete/consumo*100));
+  const iP=Math.min(100,Math.round(immessa/prod*100));
+  document.getElementById('b-auto').style.width=aP+'%';
+  document.getElementById('b-rete').style.width=rP+'%';
+  document.getElementById('b-immessa').style.width=iP+'%';
+  document.getElementById('bl-auto').textContent=fmt(autoc)+' kWh ('+aP+'%)';
+  document.getElementById('bl-rete').textContent=fmt(rete)+' kWh ('+rP+'%)';
+  document.getElementById('bl-immessa').textContent=fmt(immessa)+' kWh ('+iP+'%)';
+  const badge=document.getElementById('pb-badge');
+  if(pb<=10){badge.className='pb-badge good';badge.textContent='✓ Investimento vantaggioso';}
+  else{badge.className='pb-badge warn';badge.textContent='⚠ Valuta attentamente';}
+}
+
+function bind(id,outId,fn){
+  const el=document.getElementById(id),out=document.getElementById(outId);
+  el.addEventListener('input',()=>{out.textContent=fn(+el.value);calc();});
+}
+bind('consumo','consumo-val',v=>fmt(v)+' kWh');
+bind('bolletta','bolletta-val',v=>'€ '+fmt(v));
+bind('potenza','potenza-val',v=>v+' kWp');
+bind('costo','costo-val',v=>'€ '+fmt(v));
+document.getElementById('zona').addEventListener('change',calc);
+calc();
+
+function openModal(){document.getElementById('modal').classList.add('open');document.body.style.overflow='hidden';}
+function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
+function handleOverlayClick(e){if(e.target===document.getElementById('modal'))closeModal();}
+
+async function handlePayment(){
+  const email=document.getElementById('modal-email').value.trim();
+  if(!email||!email.includes('@')){
+    document.getElementById('modal-email').style.borderColor='#FF3B30';
+    document.getElementById('modal-email').focus();
+    return;
+  }
+  const btn=document.getElementById('btn-pay');
+  btn.disabled=true;
+  btn.textContent='Reindirizzamento a Stripe...';
+  localStorage.setItem('solarmente_sim',JSON.stringify(simData));
+  localStorage.setItem('solarmente_email',email);
+  window.location.href='https://buy.stripe.com/4gM7sNgIDeym8spbtb4Vy00?prefilled_email='+encodeURIComponent(email)+'&success_url='+encodeURIComponent('https://solarmente-beta.vercel.app/?paid=true');
+}
+
+async function generatePremiumAnalysis(){
+  try{
+    const res=await fetch('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({simData})});
+    const data=await res.json();
+    const result=data.result||'<p style="color:var(--text2)">Analisi non disponibile al momento.</p>';
+    document.getElementById('premium-content').innerHTML=result;
+    localStorage.setItem('solarmente_analysis',result);
+    localStorage.setItem('solarmente_sim_done',JSON.stringify(simData));
+  }catch(e){
+    document.getElementById('premium-content').innerHTML='<p style="color:var(--text2)">Errore nella generazione. Riprova tra qualche istante.</p>';
+  }
+}
+
+async function activateTestMode(){
+  document.getElementById('test-btn-wrap').style.display='none';
+  const box=document.getElementById('premium-result');
+  box.classList.add('visible');
+  box.scrollIntoView({behavior:'smooth',block:'start'});
+  await generatePremiumAnalysis();
+}
+
+window.addEventListener('load',async()=>{
+  const params=new URLSearchParams(window.location.search);
+  const paid=params.get('paid');
+  const savedAnalysis=localStorage.getItem('solarmente_analysis');
+  if(savedAnalysis && paid!=='true'){
+    const savedSimDone=localStorage.getItem('solarmente_sim_done');
+    if(savedSimDone){
+      const saved=JSON.parse(savedSimDone);
+      simData=saved;
+      document.getElementById('consumo').value=saved.consumo;
+      document.getElementById('consumo-val').textContent=fmt(saved.consumo)+' kWh';
+      document.getElementById('bolletta').value=saved.bolletta;
+      document.getElementById('bolletta-val').textContent='€ '+fmt(saved.bolletta);
+      document.getElementById('potenza').value=saved.potenza;
+      document.getElementById('potenza-val').textContent=saved.potenza+' kWp';
+      document.getElementById('costo').value=saved.costo;
+      document.getElementById('costo-val').textContent='€ '+fmt(saved.costo);
+      calc();
+    }
+    document.getElementById('premium-result').classList.add('visible');
+    document.getElementById('premium-content').innerHTML=savedAnalysis;
+    return;
+  }
+  if(paid==='true'){
+    const savedSim=localStorage.getItem('solarmente_sim');
+    if(savedSim){
+      const saved=JSON.parse(savedSim);
+      simData=saved;
+      document.getElementById('consumo').value=saved.consumo;
+      document.getElementById('consumo-val').textContent=fmt(saved.consumo)+' kWh';
+      document.getElementById('bolletta').value=saved.bolletta;
+      document.getElementById('bolletta-val').textContent='€ '+fmt(saved.bolletta);
+      document.getElementById('potenza').value=saved.potenza;
+      document.getElementById('potenza-val').textContent=saved.potenza+' kWp';
+      document.getElementById('costo').value=saved.costo;
+      document.getElementById('costo-val').textContent='€ '+fmt(saved.costo);
+      calc();
+    }else{calc();}
+    const confirm=document.getElementById('payment-confirm');
+    confirm.classList.add('visible');
+    document.getElementById('simulatore').scrollIntoView({behavior:'smooth'});
+    setTimeout(()=>confirm.scrollIntoView({behavior:'smooth',block:'start'}),600);
+    document.getElementById('premium-result').classList.add('visible');
+    await generatePremiumAnalysis();
+    setTimeout(()=>confirm.classList.remove('visible'),500);
+    setTimeout(()=>document.getElementById('premium-result').scrollIntoView({behavior:'smooth',block:'start'}),800);
+    localStorage.removeItem('solarmente_sim');
+    localStorage.removeItem('solarmente_email');
+    window.history.replaceState({},document.title,window.location.pathname);
+  }
+});
+
+function scrollToSection(id){
+  const el=document.getElementById(id);
+  if(!el)return;
+  window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-52,behavior:'smooth'});
+}
+function navTo(e,link){
+  e.preventDefault();
+  scrollToSection(link.getAttribute('data-target'));
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  link.classList.add('active');
+}
+window.addEventListener('scroll',()=>{
+  const scrollY=window.scrollY+80;
+  let current='';
+  ['come-funziona','simulatore'].forEach(id=>{const el=document.getElementById(id);if(el&&el.offsetTop<=scrollY)current=id;});
+  document.querySelectorAll('.nav-links a').forEach(a=>{a.classList.toggle('active',a.getAttribute('data-target')===current);});
+},{passive:true});
+
+const legalContent={
+  privacy:`<h2>Privacy Policy</h2><span class="legal-date">Ultimo aggiornamento: gennaio 2026</span><h3>1. Titolare del trattamento</h3><p>SolarMente è il titolare del trattamento dei dati personali raccolti tramite questo sito web.</p><h3>2. Dati raccolti</h3><ul><li>Email — fornita al momento dell'acquisto</li><li>Dati di navigazione — indirizzo IP, browser, pagine visitate</li><li>Dati di simulazione — parametri inseriti, salvati localmente nel browser</li></ul><h3>3. Finalità</h3><p>Erogare il servizio di analisi, gestire il pagamento tramite Stripe, migliorare il servizio.</p><h3>4. Base giuridica</h3><p>Consenso dell'utente ed esecuzione del contratto (art. 6 GDPR).</p><h3>5. Conservazione</h3><p>I dati di simulazione sono salvati esclusivamente nel browser dell'utente (localStorage).</p><h3>6. Diritti</h3><p>Ai sensi del GDPR hai diritto di accesso, rettifica, cancellazione e portabilità.</p><h3>7. Trasferimento dati</h3><p>Pagamenti gestiti da Stripe Inc. Analisi AI generata tramite Anthropic senza memorizzazione permanente.</p><h3>8. Cookie</h3><p>Solo cookie tecnici essenziali. Nessun cookie di profilazione.</p>`,
+  termini:`<h2>Termini e Condizioni</h2><span class="legal-date">Ultimo aggiornamento: gennaio 2026</span><h3>1. Descrizione del servizio</h3><p>SolarMente offre un simulatore fotovoltaico gratuito e un servizio di analisi avanzata a pagamento (€9,90) generata tramite intelligenza artificiale.</p><h3>2. Natura del servizio</h3><p>L'analisi è di natura informativa e orientativa. Non costituisce consulenza professionale, progettazione tecnica o preventivo commerciale.</p><h3>3. Limitazione di responsabilità</h3><p>SolarMente non è responsabile per decisioni di investimento basate sull'analisi, differenze tra stime ed effettivo, o variazioni normative successive.</p><h3>4. Pagamento e rimborsi</h3><p>Il pagamento di €9,90 è una tantum, senza abbonamenti. Data la natura digitale del servizio, il diritto di recesso non si applica dopo la consegna dell'analisi (art. 59 Direttiva 2011/83/UE).</p><h3>5. Proprietà intellettuale</h3><p>L'analisi generata è di uso personale e non può essere rivenduta commercialmente.</p><h3>6. Legge applicabile</h3><p>Legge italiana. Per controversie è competente il Foro del consumatore.</p>`,
+  cookie:`<h2>Cookie Policy</h2><span class="legal-date">Ultimo aggiornamento: gennaio 2026</span><h3>Cookie che utilizziamo</h3><ul><li>localStorage — salva dati della simulazione e analisi nel browser locale. Non inviati a server esterni.</li><li>Cookie Stripe — usati durante il pagamento per sicurezza della transazione.</li></ul><h3>Cookie NON utilizzati</h3><ul><li>Cookie di profilazione o advertising</li><li>Google Analytics o strumenti di tracciamento di terze parti</li></ul><h3>Gestione</h3><p>Puoi cancellare i dati in qualsiasi momento dalle impostazioni del browser.</p>`
+};
+
+function openLegal(type){
+  document.getElementById('legal-content').innerHTML=legalContent[type]||'';
+  document.getElementById('legal-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLegal(){
+  document.getElementById('legal-modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+function handleLegalOverlay(e){if(e.target===document.getElementById('legal-modal'))closeLegal();}
+
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
