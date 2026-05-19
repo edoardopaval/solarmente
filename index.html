@@ -139,8 +139,8 @@ select:focus{border-color:#D97706;}
 #test-btn-wrap button{background:transparent;border:1px dashed var(--border);color:var(--text3);border-radius:8px;padding:6px 14px;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;}
 
 /* MODAL PAGAMENTO */
-.modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.4);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px;}
-.modal-overlay.open{display:flex;}
+.modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.4);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);display:-webkit-box;display:-webkit-flex;display:flex;-webkit-box-align:center;-webkit-align-items:center;align-items:center;-webkit-box-pack:center;-webkit-justify-content:center;justify-content:center;padding:20px;visibility:hidden;pointer-events:none;opacity:0;-webkit-transition:opacity .2s;transition:opacity .2s;}
+.modal-overlay.open{visibility:visible;pointer-events:auto;opacity:1;}
 .modal-box{background:#fff;border-radius:24px;width:100%;max-width:460px;padding:40px;position:relative;animation:slideUp .3s ease;box-shadow:var(--shadow-lg);}
 @keyframes slideUp{from{transform:translateY(20px);opacity:0;}to{transform:none;opacity:1;}}
 .modal-close{position:absolute;top:16px;right:16px;background:var(--bg2);border:none;color:var(--text2);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;}
@@ -162,7 +162,7 @@ select:focus{border-color:#D97706;}
 
 /* CONFERMA PAGAMENTO */
 .payment-confirm{display:none;margin-top:28px;background:#F0FDF9;border-radius:20px;border:1.5px solid #A7F3D0;padding:32px;text-align:center;}
-.payment-confirm.visible{display:block;}
+.payment-confirm.visible{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;}
 .payment-confirm-icon{font-size:48px;margin-bottom:12px;}
 .payment-confirm h3{font-size:20px;font-weight:600;letter-spacing:-0.02em;color:#065F46;margin-bottom:8px;}
 .payment-confirm p{font-size:14px;color:#6EE7B7;}
@@ -172,7 +172,7 @@ select:focus{border-color:#D97706;}
 
 /* RISULTATO PREMIUM */
 .premium-result{display:none;margin-top:28px;background:#fff;border-radius:20px;border:1.5px solid #F59E0B;padding:36px;box-shadow:var(--shadow);}
-.premium-result.visible{display:block;}
+.premium-result.visible{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;}
 .premium-result-header{display:flex;align-items:center;gap:12px;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--border-light);}
 .premium-result-header h3{font-size:20px;font-weight:600;letter-spacing:-0.02em;color:#D97706;}
 .pr-section{margin-bottom:24px;}
@@ -196,8 +196,8 @@ footer{padding:60px 24px 40px;border-top:0.5px solid var(--border);}
 .footer-bottom{max-width:900px;margin:0 auto;padding-top:24px;border-top:0.5px solid var(--border);font-size:13px;color:var(--text3);}
 
 /* LEGAL MODAL */
-.legal-overlay{display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,0.4);backdrop-filter:blur(10px);align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;}
-.legal-overlay.open{display:flex;}
+.legal-overlay{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,0.4);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);display:-webkit-box;display:-webkit-flex;display:flex;-webkit-box-align:start;-webkit-align-items:flex-start;align-items:flex-start;-webkit-box-pack:center;-webkit-justify-content:center;justify-content:center;padding:20px;overflow-y:auto;visibility:hidden;pointer-events:none;opacity:0;-webkit-transition:opacity .2s;transition:opacity .2s;}
+.legal-overlay.open{visibility:visible;pointer-events:auto;opacity:1;}
 .legal-box{background:#fff;border-radius:24px;width:100%;max-width:680px;padding:48px;position:relative;margin:auto;box-shadow:var(--shadow-lg);}
 .legal-close{position:absolute;top:20px;right:20px;background:var(--bg2);border:none;color:var(--text2);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;}
 .legal-close:hover{background:var(--border-light);}
