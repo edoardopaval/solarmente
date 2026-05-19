@@ -69,14 +69,14 @@ h1 em{font-style:normal;color:var(--blue);}
 .step-desc{font-size:15px;font-weight:300;color:var(--text2);line-height:1.6;}
 
 /* SIMULATORE */
-#simulatore{padding:100px 24px;background:var(--bg2);}
+#simulatore{padding:100px 24px 80px;background:var(--bg2);}
 .sim-wrap{max-width:860px;margin:0 auto;}
-.sim-box{background:#fff;border-radius:24px;padding:48px;box-shadow:var(--shadow-lg);}
+.sim-box{background:#fff;border-radius:24px;padding:48px;box-shadow:0 4px 32px rgba(0,0,0,0.15);border:1px solid var(--border-light);}
 .sliders-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px;margin-bottom:40px;}
 .field-label{font-size:12px;font-weight:500;color:var(--text2);letter-spacing:0.02em;margin-bottom:10px;text-transform:uppercase;}
 .field-val{font-size:17px;font-weight:600;color:var(--blue);margin-top:8px;letter-spacing:-0.02em;}
-input[type=range]{width:100%;-webkit-appearance:none;height:3px;border-radius:2px;background:var(--border-light);outline:none;cursor:pointer;}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--blue);box-shadow:0 2px 8px rgba(217,119,6,0.35);cursor:pointer;}
+input[type=range]{width:100%;-webkit-appearance:none;height:4px;border-radius:2px;background:var(--border-light);outline:none;cursor:pointer;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--blue);box-shadow:0 2px 8px rgba(217,119,6,0.35);cursor:pointer;}
 select{width:100%;background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-family:'Inter',sans-serif;font-size:14px;font-weight:400;outline:none;cursor:pointer;margin-top:4px;-webkit-appearance:none;}
 select:focus{border-color:#D97706;}
 .results-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:24px;}
@@ -200,6 +200,15 @@ footer{padding:60px 24px 40px;border-top:0.5px solid var(--border);}
 .legal-box li{margin-bottom:4px;}
 @media(max-width:768px){.legal-box{padding:28px 20px;}}
 
+/* COOKIE BANNER */
+.cookie-banner{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:1000;background:#fff;border:0.5px solid #D2D2D7;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.1);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;width:calc(100% - 48px);max-width:700px;}
+.cookie-banner p{font-size:13px;color:#6E6E73;line-height:1.5;margin:0;flex:1;min-width:200px;}
+.cookie-banner a{color:#D97706;text-decoration:none;cursor:pointer;}
+.cookie-banner a:hover{text-decoration:underline;}
+.cookie-btn{background:#1D1D1F;color:#fff;border:none;border-radius:980px;padding:8px 20px;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;transition:background .2s;}
+.cookie-btn:hover{background:#3D3D3F;}
+@media(max-width:768px){.cookie-banner{bottom:12px;width:calc(100% - 32px);padding:12px 14px;border-radius:12px;}.cookie-banner p{font-size:12px;}}
+
 /* ANIMATIONS */
 .fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
 .fade-up.visible{opacity:1;transform:none;}
@@ -216,13 +225,16 @@ footer{padding:60px 24px 40px;border-top:0.5px solid var(--border);}
   .btn-primary,.btn-ghost{width:100%;max-width:300px;text-align:center;}
   #come-funziona,#simulatore{padding:60px 20px;}
   .steps-wrap{grid-template-columns:1fr;}
-  .sim-box{padding:24px 20px;}
+  .sim-box{padding:24px 16px;box-shadow:0 2px 16px rgba(0,0,0,0.1);border:1px solid var(--border);}
+  .sliders-grid{grid-template-columns:1fr;gap:20px;}
   .results-grid{grid-template-columns:1fr;}
-  .prem-cards{grid-template-columns:1fr;}
+  .prem-cards{grid-template-columns:1fr 1fr;gap:8px;}
   .prem-header{flex-direction:column;}
   .prem-price-wrap{text-align:left;}
   .payback-row{flex-direction:column;gap:12px;}
   .footer-inner{flex-direction:column;gap:28px;}
+  .result-actions{flex-direction:column;}
+  .btn-action{min-width:unset;}
 }
 </style>
 </head>
@@ -230,10 +242,11 @@ footer{padding:60px 24px 40px;border-top:0.5px solid var(--border);}
 
 <!-- NAV -->
 <nav>
-  <div class="logo"><span>Solar</span>Mente</div>
+  <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="cursor:pointer;"><span>Solar</span>Mente</div>
   <ul class="nav-links">
     <li><a data-target="come-funziona" onclick="navTo(event,this)">Come funziona</a></li>
     <li><a data-target="simulatore" onclick="navTo(event,this)">Simulatore</a></li>
+    <li><a onclick="openContatti()" style="cursor:pointer;">Contatti</a></li>
   </ul>
   <button class="nav-cta" onclick="scrollToSection('simulatore')">Prova il simulatore</button>
 </nav>
@@ -262,13 +275,11 @@ footer{padding:60px 24px 40px;border-top:0.5px solid var(--border);}
   </div>
   <div class="steps-wrap fade-up">
     <div class="step-card">
-      <div class="step-num">01</div>
       
       <div class="step-title">Simulazione gratuita</div>
       <p class="step-desc">Muovi i cursori, scegli la tua zona e ottieni subito produzione stimata, risparmio annuo e tempo di rientro dell'investimento. Nessuna registrazione richiesta.</p>
     </div>
     <div class="step-card">
-      <div class="step-num">02</div>
       
       <div class="step-title">Analisi AI avanzata</div>
       <p class="step-desc">Sblocca l'analisi personalizzata a €9,90: taglia ottimale, batteria di accumulo, detrazione IRPEF calcolata sul tuo caso, consigli mirati ed errori da evitare.</p>
@@ -411,7 +422,7 @@ footer{padding:60px 24px 40px;border-top:0.5px solid var(--border);}
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <div class="logo"><span>Solar</span>Mente</div>
+      <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="cursor:pointer;"><span>Solar</span>Mente</div>
       <p>Simulatore e analisi AI per impianti fotovoltaici su misura.</p>
     </div>
     <div class="footer-col">
@@ -450,6 +461,27 @@ footer{padding:60px 24px 40px;border-top:0.5px solid var(--border);}
     </div>
     <button class="btn-pay" id="btn-pay" onclick="handlePayment()">Paga €9,90 e sblocca l'analisi</button>
     <p class="modal-note">Pagamento sicuro gestito da Stripe. Tornerai automaticamente qui con la tua analisi.</p>
+  </div>
+</div>
+
+<!-- COOKIE BANNER -->
+<div class="cookie-banner" id="cookie-banner">
+  <p>Utilizziamo cookie tecnici essenziali per il funzionamento del sito e la gestione dei pagamenti. Nessun cookie pubblicitario o di profilazione. <a onclick="openLegal('cookie')" style="cursor:pointer;">Scopri di più</a></p>
+  <button class="cookie-btn" onclick="acceptCookie()">OK, capito</button>
+</div>
+
+<!-- CONTATTI MODAL -->
+<div class="modal-overlay" id="contatti-modal" onclick="if(event.target===this)closeContatti()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeContatti()">✕</button>
+    <div style="font-size:32px;margin-bottom:12px;">✉</div>
+    <h2>Contattaci</h2>
+    <p class="modal-sub">Per domande sul servizio, problemi con il pagamento o qualsiasi altra richiesta, scrivici a:</p>
+    <div style="background:var(--bg2);border-radius:12px;padding:16px;text-align:center;margin-bottom:20px;border:1px solid var(--border-light);">
+      <div style="font-size:18px;font-weight:600;color:var(--blue);">solarmente.info@gmail.com</div>
+    </div>
+    <button onclick="navigator.clipboard.writeText('solarmente.info@gmail.com').then(()=>{this.textContent='Email copiata!';setTimeout(()=>this.textContent='Copia email',2000)})" style="width:100%;padding:14px;border-radius:980px;border:1.5px solid var(--border);background:transparent;font-family:'Inter',sans-serif;font-size:15px;font-weight:500;cursor:pointer;color:var(--text);">Copia email</button>
+    <p style="font-size:12px;color:var(--text3);text-align:center;margin-top:12px;">Risposta garantita entro 24 ore lavorative.</p>
   </div>
 </div>
 
@@ -657,6 +689,20 @@ const legalContent={
   termini:`<h2>Termini e Condizioni</h2><span class="legal-date">Ultimo aggiornamento: gennaio 2026</span><h3>1. Descrizione del servizio</h3><p>SolarMente offre un simulatore fotovoltaico gratuito e un servizio di analisi avanzata a pagamento (€9,90) generata tramite intelligenza artificiale.</p><h3>2. Natura del servizio</h3><p>L'analisi è di natura informativa e orientativa. Non costituisce consulenza professionale, progettazione tecnica o preventivo commerciale.</p><h3>3. Limitazione di responsabilità</h3><p>SolarMente non è responsabile per decisioni di investimento basate sull'analisi, differenze tra stime ed effettivo, o variazioni normative successive.</p><h3>4. Pagamento e rimborsi</h3><p>Il pagamento di €9,90 è una tantum, senza abbonamenti. Data la natura digitale del servizio, il diritto di recesso non si applica dopo la consegna dell'analisi (art. 59 Direttiva 2011/83/UE).</p><h3>5. Proprietà intellettuale</h3><p>L'analisi generata è di uso personale e non può essere rivenduta commercialmente.</p><h3>6. Legge applicabile</h3><p>Legge italiana. Per controversie è competente il Foro del consumatore.</p>`,
   cookie:`<h2>Cookie Policy</h2><span class="legal-date">Ultimo aggiornamento: gennaio 2026</span><h3>Cookie che utilizziamo</h3><ul><li>localStorage — salva dati della simulazione e analisi nel browser locale. Non inviati a server esterni.</li><li>Cookie Stripe — usati durante il pagamento per sicurezza della transazione.</li></ul><h3>Cookie NON utilizzati</h3><ul><li>Cookie di profilazione o advertising</li><li>Google Analytics o strumenti di tracciamento di terze parti</li></ul><h3>Gestione</h3><p>Puoi cancellare i dati in qualsiasi momento dalle impostazioni del browser.</p>`
 };
+
+// COOKIE BANNER
+function acceptCookie(){
+  localStorage.setItem('cookie_accepted','1');
+  document.getElementById('cookie-banner').style.display='none';
+}
+window.addEventListener('DOMContentLoaded',()=>{
+  if(localStorage.getItem('cookie_accepted')==='1'){
+    document.getElementById('cookie-banner').style.display='none';
+  }
+});
+
+function openContatti(){document.getElementById('contatti-modal').classList.add('open');document.body.style.overflow='hidden';}
+function closeContatti(){document.getElementById('contatti-modal').classList.remove('open');document.body.style.overflow='';}
 
 function openLegal(type){
   document.getElementById('legal-content').innerHTML=legalContent[type]||'';
